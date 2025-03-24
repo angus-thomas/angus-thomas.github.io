@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My GitHub Site</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+        }
+        canvas {
+            display: block;
+            margin: 20px auto;
+            background: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My GitHub Site</h1>
+    <p>This is a simple homepage with a WebGL canvas.</p>
+    <canvas id="glCanvas" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById("glCanvas");
+        const gl = canvas.getContext("webgl");
+        if (!gl) {
+            alert("WebGL not supported");
+        } else {
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+        }
+    </script>
+</body>
+</html>
