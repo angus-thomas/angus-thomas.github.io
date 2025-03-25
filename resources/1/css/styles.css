@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: white;
+    
+    background-image: url('resources/img/sunset.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+canvas {
+    display: block;
+    margin: 20px auto;
+    background: black;
+}
