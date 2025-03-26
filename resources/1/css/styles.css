@@ -3,9 +3,9 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    color: white;
+    color: black;
     
-    background-image: url('resources/img/sunset.jpg');
+    background-image: url('/resources/1/img/sunset.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
