@@ -5,46 +5,46 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Angus's Website</title>
-	<link rel="stylesheet" href="/resources/1/css/styles.css">
+	<link rel="stylesheet" href="/resources/2/css/styles.css">
 </head>
 
 <body>
-	
-	<h1>Angus's Website</h1>
-	<h2>Pub scheduling</h2>
-	<div class="strawpoll-embed" id="strawpoll_mpnb1dOLQy5" style="height: 788px; max-width: 1000px; width: 100%; margin: 0 auto; display: flex; flex-direction: column;"><iframe title="StrawPoll Embed" id="strawpoll_iframe_mpnb1dOLQy5" src="https://strawpoll.com/embed/mpnb1dOLQy5" style="position: static; visibility: visible; display: block; width: 100%; flex-grow: 1;" frameborder="0" allowfullscreen allowtransparency>Loading...</iframe><script async src="https://cdn.strawpoll.com/dist/widgets.js" charset="utf-8"></script></div>
-	
-	<h2>Here are my public messages</h2>
-	<div class="messages">
-		<div class="message">
-			<p class="message-body">
-				Hi Tara, have a lovely day too XXX
-			</p>
-			<span class="message-timestamp">
-				26<sup>th</sup> March 2025 09:19
-			</span>
+	<div class="container">
+		<h1>Angus's Website</h1>
+		<h2>Pub scheduling</h2>
+		<a href="/dinner">View scheduling poll</a>
+		<h2>Here are my public messages</h2>
+		<div class="messages">
+			<div class="message">
+				<p class="message-body">
+					Hi Tara, have a lovely day too XXX
+				</p>
+				<span class="message-timestamp">
+					26<sup>th</sup> March 2025 09:19
+				</span>
+			</div>
+			<div class="message">
+				<p class="message-body">
+					Hi Katherine, check out this site! I'm not starting a business - just got the domain for fun. Will probably put some blog style content on here.
+				</p>
+				<span class="message-timestamp">
+					26<sup>th</sup> March 2025 09:21
+				</span>
+			</div>
 		</div>
-		<div class="message">
-			<p class="message-body">
-				Hi Katherine, check out this site! I'm not starting a business - just got the domain for fun. Will probably put some blog style content on here.
-			</p>
-			<span class="message-timestamp">
-				26<sup>th</sup> March 2025 09:21
-			</span>
-		</div>
+		<h2>Here's my WebGL canvas</h2>
+		<canvas id="glCanvas" width="200" height="200"></canvas>
+		<script>
+			const canvas = document.getElementById("glCanvas");
+			const gl = canvas.getContext("webgl");
+			if (!gl) {
+				alert("WebGL not supported");
+			} else {
+				gl.clearColor(0.0, 0.0, 0.0, 1.0);
+				gl.clear(gl.COLOR_BUFFER_BIT);
+			}
+		</script>
 	</div>
-	<h2>Here's my WebGL canvas.</h2>
-	<canvas id="glCanvas" width="200" height="200"></canvas>
-	<script>
-		const canvas = document.getElementById("glCanvas");
-		const gl = canvas.getContext("webgl");
-		if (!gl) {
-			alert("WebGL not supported");
-		} else {
-			gl.clearColor(0.0, 0.0, 0.0, 1.0);
-			gl.clear(gl.COLOR_BUFFER_BIT);
-		}
-	</script>
 </body>
 
 </html>

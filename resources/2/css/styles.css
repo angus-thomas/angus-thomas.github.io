@@ -5,13 +5,15 @@ body {
     padding: 0;
     color: black;
     
-    background-image: url('/resources/1/img/sunset.png');
+    background-image: url('/resources/2/img/sunset.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
+
 canvas {
     display: block;
     margin: 20px auto;
     background: black;
 }
+
