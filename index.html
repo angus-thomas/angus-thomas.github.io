@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angus's Website</title>
-    <link rel="stylesheet" href="/resources/1/css/styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Angus's Website</title>
+	<link rel="stylesheet" href="/resources/1/css/styles.css">
 </head>
+
 <body>
-    <h1>Angus's Website</h1>
-    <p>Here's my WebGL canvas.</p>
-    <canvas id="glCanvas" width="400" height="400"></canvas>
-    <script>
-        const canvas = document.getElementById("glCanvas");
-        const gl = canvas.getContext("webgl");
-        if (!gl) {
-            alert("WebGL not supported");
-        } else {
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);
-            gl.clear(gl.COLOR_BUFFER_BIT);
-        }
-    </script>
+	<h1>Angus's Website</h1>
+	<p>Here's my WebGL canvas.</p>
+	<canvas id="glCanvas" width="400" height="400"></canvas>
+	<script>
+		const canvas = document.getElementById("glCanvas");
+		const gl = canvas.getContext("webgl");
+		if (!gl) {
+			alert("WebGL not supported");
+		} else {
+			gl.clearColor(0.0, 0.0, 0.0, 1.0);
+			gl.clear(gl.COLOR_BUFFER_BIT);
+		}
+	</script>
 </body>
+
 </html>
