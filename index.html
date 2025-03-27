@@ -32,18 +32,81 @@
 				</span>
 			</div>
 		</div>
-		<h2>Here's my WebGL canvas</h2>
-		<canvas id="glCanvas" width="200" height="200"></canvas>
+		<h2>Here's my WebGL canvas</h2><canvas id="glCanvas" width="200" height="200"></canvas>
 		<script>
 			const canvas = document.getElementById("glCanvas");
 			const gl = canvas.getContext("webgl");
+		
 			if (!gl) {
 				alert("WebGL not supported");
 			} else {
+				// Clear the canvas to black
 				gl.clearColor(0.0, 0.0, 0.0, 1.0);
 				gl.clear(gl.COLOR_BUFFER_BIT);
+		
+				// Vertex shader source code
+				const vertexShaderSource = `
+					attribute vec2 position;
+					void main() {
+						gl_Position = vec4(position, 0.0, 1.0);
+					}
+				`;
+		
+				// Fragment shader source code
+				const fragmentShaderSource = `
+					precision mediump float;
+					void main() {
+						gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);  // Red color
+					}
+				`;
+		
+				// Compile shaders
+				function compileShader(source, type) {
+					const shader = gl.createShader(type);
+					gl.shaderSource(shader, source);
+					gl.compileShader(shader);
+					if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+						console.error("ERROR compiling shader:", gl.getShaderInfoLog(shader));
+					}
+					return shader;
+				}
+		
+				// Create shaders and program
+				const vertexShader = compileShader(vertexShaderSource, gl.VERTEX_SHADER);
+				const fragmentShader = compileShader(fragmentShaderSource, gl.FRAGMENT_SHADER);
+		
+				const program = gl.createProgram();
+				gl.attachShader(program, vertexShader);
+				gl.attachShader(program, fragmentShader);
+				gl.linkProgram(program);
+				gl.useProgram(program);
+		
+				// Define square vertices
+				const sqextents = 0.3;
+				const vertices = new Float32Array([
+					-sqextents,  sqextents,   // Top-left
+					 sqextents,  sqextents,   // Top-right
+					-sqextents, -sqextents,   // Bottom-left
+					 sqextents, -sqextents    // Bottom-right
+				]);
+		
+				// Create a buffer and load the vertices
+				const buffer = gl.createBuffer();
+				gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+				gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+		
+				// Get attribute location and enable it
+				const position = gl.getAttribLocation(program, "position");
+				gl.enableVertexAttribArray(position);
+				gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+		
+				// Draw the red square
+				gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 			}
 		</script>
+	</div>
+	<div class="wall" style="min-width: 80vw; min-height: 100px;">
+		Here's a wall that I built
 	</div>
 </body>
 

@@ -28,3 +28,10 @@ body:has(.container) {
     padding: 20px;
     box-shadow: 2px 3px 20px 1px black;
 }
+
+.wall {
+    background-image: url('/resources/2/img/bricks.png');
+    background-size: 40px;
+    position: absolute;
+    bottom: 0
+}
