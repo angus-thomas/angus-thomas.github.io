@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     color: black;
-    
+    min-height: 100vh;
     background-image: url('/resources/2/img/sunset.png');
     background-size: cover;
     background-position: center;
@@ -17,3 +17,14 @@ canvas {
     background: black;
 }
 
+body:has(.container) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    background-color: #dbbfbfaa;
+    padding: 20px;
+    box-shadow: 2px 3px 20px 1px black;
+}
