@@ -24,14 +24,18 @@ body:has(.container) {
 }
 
 .container {
+    margin-top: 10px;
     background-color: #dbbfbfaa;
     padding: 20px;
-    box-shadow: 2px 3px 20px 1px black;
+    box-shadow: 0px -1px 7px 5px #dbbfbfaa;
+    border-radius: 15px;
 }
 
 .wall {
     background-image: url('/resources/2/img/bricks.png');
     background-size: 40px;
     position: absolute;
-    bottom: 0
+    bottom: 0;
+    color: white;
+    align-content: end;
 }
