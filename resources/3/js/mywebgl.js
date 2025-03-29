@@ -1,4 +1,4 @@
-const RESOURCES_LIB = "/resources/2"
+const RESOURCES_LIB = "/resources/3"
 
 const KEY_UP = 0
 const KEY_DOWN = 1
@@ -23,9 +23,6 @@ await gl_init();
 var playerSpeed = 1;
 const playerPosition = new Float32Array([0,	0,	0]);
 const playerVelocity = new Float32Array([0,	0,	0]);
-
-
-
 
 canvas.addEventListener("keydown", function (ev) {
 	switch (ev.key) {
