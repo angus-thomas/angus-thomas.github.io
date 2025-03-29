@@ -8,59 +8,67 @@
 	<link rel="stylesheet" href="/resources/2/css/styles.css">
 </head>
 
-<body style="position: relative">
-	<div class="container" style="margin-bottom: 100px;">
+<body>
+	<div class="container">
 		<h1>Angus's Website</h1>
-		<h2>Pub scheduling</h2>
-		<a href="/dinner">View scheduling poll</a>
-		<h2>Here are my public messages</h2>
-		<div class="messages">
-			<div class="message">
-				<p class="message-body">
-					Hi Tara, Dinner will be ready at 23:20 Xx
-				</p>
-				<span class="timestamp">
-					28<sup>th</sup> March 2025 22:32
-				</span>
-			</div>
-			<div class="message">
-				<p class="message-body">
-					Hi Katherine, check out this site! I'm not starting a business - just got the domain for fun. Will probably put some blog style content on here.
-				</p>
-				<span class="timestamp">
-					26<sup>th</sup> March 2025 09:21
-				</span>
-			</div>
-			<div class="message">
-				<p class="message-body">
-					Hi Tara, have a lovely day too XXX
-				</p>
-				<span class="timestamp">
-					26<sup>th</sup> March 2025 09:19
-				</span>
-			</div>
-		</div>
-		<h2>Here's my WebGL canvas</h2>
-		<canvas id="glCanvas" tabindex="-1" width="350" height="350"></canvas>
-		<script src="/resources/2/js/mywebgl.js" type="module"></script>
-		<div class="message">
-			<p>I've been preparing to start using OpenGL this evening! This will be my first time coding for a GPU. I intend to feed in position and orientation coordinates of an observer, and transform my trusty red square.
-				I've just put in some JS to use the WASD keys to capture observer position, now to create the transformation matrices and use them.
-				</p>
-				<p>...</p>
-				<p>
-					
-					At long last I have movement of my square!
-					It looks like 2 spinning squares rather than a cube, as I haven't meshed the cube properly; I've specified 8 vertices, and the shader has only drawn triangles between some of them.
-				</p>
-				<p>
-					
-					As promised, the GPU has a wealth of linear algebra methods. Unfortunately, the linear algera used to find the observer's transformation matrix, that occurs once per frame, needs to run on the CPU, and therefore needs to be coded up in JS (eugh).
-				</p>
-			</p><span class="timestamp">28<sup>th</sup> March 2025 01:55</span>
-		</div>
 		
+		<section>
+			<h2>Pub scheduling</h2>
+			<a href="/dinner">View scheduling poll</a>
+		</section>
+		
+		<section>
+				<h2>Here are my public messages</h2>
+			<div class="messages">
+				<div class="message">
+					<p class="message-body">
+						Hi Tara, Dinner will be ready at 23:20 Xx
+					</p>
+					<span class="timestamp">
+						28<sup>th</sup> March 2025 22:32
+					</span>
+				</div>
+				<div class="message">
+					<p class="message-body">
+						Hi Katherine, check out this site! I'm not starting a business - just got the domain for fun. Will probably put some blog style content on here.
+					</p>
+					<span class="timestamp">
+						26<sup>th</sup> March 2025 09:21
+					</span>
+				</div>
+				<div class="message">
+					<p class="message-body">
+						Hi Tara, have a lovely day too XXX
+					</p>
+					<span class="timestamp">
+						26<sup>th</sup> March 2025 09:19
+					</span>
+				</div>
+			</div>
+		</section>
+		
+		<section>
+			<h2>Here's my WebGL canvas</h2>
+			<canvas id="glCanvas" tabindex="-1" width="350" height="350"></canvas>
+			<script src="/resources/2/js/mywebgl.js" type="module"></script>
+			<div class="message">
+				<p>I've been preparing to start using OpenGL this evening! This will be my first time coding for a GPU. I intend to feed in position and orientation coordinates of an observer, and transform my trusty red square.
+					I've just put in some JS to use the WASD keys to capture observer position, now to create the transformation matrices and use them.
+					</p>
+					<p>...</p>
+					<p>
+						At long last I have movement of my square!
+						It looks like 2 spinning squares rather than a cube, as I haven't meshed the cube properly; I've specified 8 vertices, and the shader has only drawn triangles between some of them.
+					</p>
+					<p>
+						
+						As promised, the GPU has a wealth of linear algebra methods. Unfortunately, the linear algera used to find the observer's transformation matrix, that occurs once per frame, needs to run on the CPU, and therefore needs to be coded up in JS (eugh).
+					</p>
+				</p><span class="timestamp">28<sup>th</sup> March 2025 01:55</span>
+			</div>
+		</section>
 	</div>
+	
 	<div class="wall" style="min-width: 80vw; min-height: 100px;">
 		Here's a wall that I built
 	</div>
