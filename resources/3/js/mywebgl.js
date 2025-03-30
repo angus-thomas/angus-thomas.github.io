@@ -15,7 +15,177 @@ const KEY_D = 7
  * @type {boolean[]}
  */
 const keysPressed = [false, false, false, false, false, false, false, false]
-
+const unitCubeLines1 = [0,0,1,1, // purple
+	0,0,0,1, // orange
+	0,0,0,1, // orange
+	1,0,1,1, // dblue
+	1,0,1,1, // dblue
+	0,0,1,1, // purple
+	
+	0,0,0,1, // orange
+	1,0,0,1, // yellow
+	1,0,0,1, // yellow
+	1,0,1,1, // dblue
+	1,0,1,1, // dblue
+	0,0,0,1, // orange
+	
+	1,0,1,1, // dblue
+	1,0,0,1, // yellow
+	1,0,0,1, // yellow
+	1,1,1,1, // lblue
+	1,1,1,1, // lblue
+	1,0,1,1, // dblue
+	
+	1,1,1,1, // lblue
+	1,0,0,1, // yellow
+	1,0,0,1, // yellow
+	1,1,0,1, // dgreen
+	1,1,0,1, // dgreen
+	1,1,1,1, // lblue
+	
+	1,1,0,1, // dgreen
+	1,0,0,1, // yellow
+	1,0,0,1, // yellow
+	0,1,0,1, // lgreen
+	0,1,0,1, // lgreen
+	1,1,0,1, // dgreen
+	
+	0,1,0,1, // lgreen
+	1,0,0,1, // yellow
+	1,0,0,1, // yellow
+	0,0,0,1, // orange
+	0,0,0,1, // orange
+	0,1,0,1, // lgreen
+	
+	0,0,0,1, // orange
+	0,0,1,1, // purple
+	0,0,1,1, // purple
+	0,1,0,1, // lgreen
+	0,1,0,1, // lgreen
+	0,0,0,1, // orange
+	
+	0,1,0,1, // lgreen
+	0,0,1,1, // purple
+	0,0,1,1, // purple
+	0,1,1,1, // pink
+	0,1,1,1, // pink
+	0,1,0,1, // lgreen
+	
+	0,1,1,1, // pink
+	1,1,1,1, // lblue
+	1,1,1,1, // lblue
+	0,1,0,1, // lgreen
+	0,1,0,1, // lgreen
+	0,1,1,1, // pink
+	
+	0,1,0,1, // lgreen
+	1,1,1,1, // lblue
+	1,1,1,1, // lblue
+	1,1,0,1, // dgreen
+	1,1,0,1, // dgreen
+	0,1,0,1, // lgreen
+	
+	1,1,1,1, // lblue
+	0,1,1,1, // pink
+	0,1,1,1, // pink
+	0,0,1,1, // purple
+	0,0,1,1, // purple
+	1,1,1,1, // lblue
+	
+	0,0,1,1, // purple
+	1,0,1,1, // dblue
+	1,0,1,1, // dblue
+	1,1,1,1, // lblue
+	1,1,1,1, // lblue
+	0,0,1,1, // purple
+	
+]
+const unitCubeLineColours1 = [
+	163,  73, 164, 255, // purple
+	255, 127,  39, 244, // orange
+	255, 127,  39, 244, // orange
+	63,  72, 204, 255, // dblue
+	63,  72, 204, 255, // dblue
+	163,  73, 164, 255, // purple
+	
+	255, 127,  39, 244, // orange
+	255, 242,   0, 255, // yellow
+	255, 242,   0, 255, // yellow
+	63,  72, 204, 255, // dblue
+	63,  72, 204, 255, // dblue
+	255, 127,  39, 244, // orange
+	
+	 63,  72, 204, 255, // dblue
+	 255, 242,   0, 255, // yellow
+	 255, 242,   0, 255, // yellow
+	 0, 162, 232, 255, // lblue
+	 0, 162, 232, 255, // lblue
+	 63,  72, 204, 255, // dblue
+	
+	  0, 162, 232, 255, // lblue
+	  255, 242,   0, 255, // yellow
+	  255, 242,   0, 255, // yellow
+	  34, 177,  76, 255, // dgreen
+	  34, 177,  76, 255, // dgreen
+	  0, 162, 232, 255, // lblue
+	
+	 34, 177,  76, 255, // dgreen
+	 255, 242,   0, 255, // yellow
+	 255, 242,   0, 255, // yellow
+	 181, 230,  29, 255, // green
+	 181, 230,  29, 255, // green
+	 34, 177,  76, 255, // dgreen
+	
+	181, 230,  29, 255, // green
+	255, 242,   0, 255, // yellow
+	255, 242,   0, 255, // yellow
+	255, 127,  39, 244, // orange
+	255, 127,  39, 244, // orange
+	181, 230,  29, 255, // green
+	
+	255, 127,  39, 244, // orange
+	163,  73, 164, 255, // purple
+	163,  73, 164, 255, // purple
+	181, 230,  29, 255, // green
+	181, 230,  29, 255, // green
+	255, 127,  39, 244, // orange
+	
+	181, 230,  29, 255, // green
+	163,  73, 164, 255, // purple
+	163,  73, 164, 255, // purple
+	255, 174, 201, 255, // pink
+	255, 174, 201, 255, // pink
+	181, 230,  29, 255, // green
+	
+	255, 174, 201, 255, // pink
+	255, 174, 201, 255, // pink
+	255, 174, 201, 255, // pink
+	  0, 162, 232, 255, // lblue
+	  0, 162, 232, 255, // lblue
+	181, 230,  29, 255, // green
+	
+	181, 230,  29, 255, // green
+	0, 162, 232, 255, // lblue
+	0, 162, 232, 255, // lblue
+	34, 177,  76, 255, // dgreen
+	34, 177,  76, 255, // dgreen
+	181, 230,  29, 255, // green
+	
+	  0, 162, 232, 255, // lblue
+	  255, 174, 201, 255, // pink
+	  255, 174, 201, 255, // pink
+	  163,  73, 164, 255, // purple
+	  163,  73, 164, 255, // purple
+	  0, 162, 232, 255, // lblue
+	
+	163,  73, 164, 255, // purple
+	63,  72, 204, 255, // dblue
+	63,  72, 204, 255, // dblue
+	0, 162, 232, 255, // lblue
+	0, 162, 232, 255, // lblue
+	163,  73, 164, 255, // pursple
+	
+]
 
 const canvas = document.getElementById("glCanvas");
 const repaint = await gl_init(canvas);
@@ -138,188 +308,20 @@ async function gl_init(canvas) {
 	
 	// Load the shapes and colours into the GPU
 	const unitColoursBuffer = gl.createBuffer();
-	const unitColours = new Uint8Array([
-		163,  73, 164, 255, // purple
-		255, 127,  39, 244, // orange
-		255, 127,  39, 244, // orange
-		63,  72, 204, 255, // dblue
-		63,  72, 204, 255, // dblue
-		163,  73, 164, 255, // purple
-		
-		255, 127,  39, 244, // orange
-		255, 242,   0, 255, // yellow
-		255, 242,   0, 255, // yellow
-		63,  72, 204, 255, // dblue
-		63,  72, 204, 255, // dblue
-		255, 127,  39, 244, // orange
-		
-		 63,  72, 204, 255, // dblue
-		 255, 242,   0, 255, // yellow
-		 255, 242,   0, 255, // yellow
-		 0, 162, 232, 255, // lblue
-		 0, 162, 232, 255, // lblue
-		 63,  72, 204, 255, // dblue
-		
-		  0, 162, 232, 255, // lblue
-		  255, 242,   0, 255, // yellow
-		  255, 242,   0, 255, // yellow
-		  34, 177,  76, 255, // dgreen
-		  34, 177,  76, 255, // dgreen
-		  0, 162, 232, 255, // lblue
-		
-		 34, 177,  76, 255, // dgreen
-		 255, 242,   0, 255, // yellow
-		 255, 242,   0, 255, // yellow
-		 181, 230,  29, 255, // green
-		 181, 230,  29, 255, // green
-		 34, 177,  76, 255, // dgreen
-		
-		181, 230,  29, 255, // green
-		255, 242,   0, 255, // yellow
-		255, 242,   0, 255, // yellow
-		255, 127,  39, 244, // orange
-		255, 127,  39, 244, // orange
-		181, 230,  29, 255, // green
-		
-		255, 127,  39, 244, // orange
-		163,  73, 164, 255, // purple
-		163,  73, 164, 255, // purple
-		181, 230,  29, 255, // green
-		181, 230,  29, 255, // green
-		255, 127,  39, 244, // orange
-		
-		181, 230,  29, 255, // green
-		163,  73, 164, 255, // purple
-		163,  73, 164, 255, // purple
-		255, 174, 201, 255, // pink
-		255, 174, 201, 255, // pink
-		181, 230,  29, 255, // green
-		
-		255, 174, 201, 255, // pink
-		255, 174, 201, 255, // pink
-		255, 174, 201, 255, // pink
-		  0, 162, 232, 255, // lblue
-		  0, 162, 232, 255, // lblue
-		181, 230,  29, 255, // green
-		
-		181, 230,  29, 255, // green
-		0, 162, 232, 255, // lblue
-		0, 162, 232, 255, // lblue
-		34, 177,  76, 255, // dgreen
-		34, 177,  76, 255, // dgreen
-		181, 230,  29, 255, // green
-		
-		  0, 162, 232, 255, // lblue
-		  255, 174, 201, 255, // pink
-		  255, 174, 201, 255, // pink
-		  163,  73, 164, 255, // purple
-		  163,  73, 164, 255, // purple
-		  0, 162, 232, 255, // lblue
-		
-		163,  73, 164, 255, // purple
-		63,  72, 204, 255, // dblue
-		63,  72, 204, 255, // dblue
-		0, 162, 232, 255, // lblue
-		0, 162, 232, 255, // lblue
-		163,  73, 164, 255, // pursple
-		
-	]);
+	const unitCubeLineColours = new Uint8Array(unitCubeLineColours1);
 	gl.bindBuffer(gl.ARRAY_BUFFER, unitColoursBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, unitColours, gl.STATIC_DRAW);
+	gl.bufferData(gl.ARRAY_BUFFER, unitCubeLineColours, gl.STATIC_DRAW);
 	
 	const dz = 0.0
 	const q = 0.25;
 	
+	const scaler = [q,0,0,0,0,q,0,0,0,0,q,0,0,0,0,1]
+	
 	const positionLocation = gl.getAttribLocation(program, "a_position");
 	const positionBuffer = gl.createBuffer();
-	const unitCube = new Float32Array([
-		0,0,q,1, // purple
-		0,0,0,1, // orange
-		0,0,0,1, // orange
-		q,0,q,1, // dblue
-		q,0,q,1, // dblue
-		0,0,q,1, // purple
-		
-		0,0,0,1, // orange
-		q,0,0,1, // yellow
-		q,0,0,1, // yellow
-		q,0,q,1, // dblue
-		q,0,q,1, // dblue
-		0,0,0,1, // orange
-		
-		q,0,q,1, // dblue
-		q,0,0,1, // yellow
-		q,0,0,1, // yellow
-		q,q,q,1, // lblue
-		q,q,q,1, // lblue
-		q,0,q,1, // dblue
-		
-		q,q,q,1, // lblue
-		q,0,0,1, // yellow
-		q,0,0,1, // yellow
-		q,q,0,1, // dgreen
-		q,q,0,1, // dgreen
-		q,q,q,1, // lblue
-		
-		q,q,0,1, // dgreen
-		q,0,0,1, // yellow
-		q,0,0,1, // yellow
-		0,q,0,1, // lgreen
-		0,q,0,1, // lgreen
-		q,q,0,1, // dgreen
-		
-		0,q,0,1, // lgreen
-		q,0,0,1, // yellow
-		q,0,0,1, // yellow
-		0,0,0,1, // orange
-		0,0,0,1, // orange
-		0,q,0,1, // lgreen
-		
-		0,0,0,1, // orange
-		0,0,q,1, // purple
-		0,0,q,1, // purple
-		0,q,0,1, // lgreen
-		0,q,0,1, // lgreen
-		0,0,0,1, // orange
-		
-		0,q,0,1, // lgreen
-		0,0,q,1, // purple
-		0,0,q,1, // purple
-		0,q,q,1, // pink
-		0,q,q,1, // pink
-		0,q,0,1, // lgreen
-		
-		0,q,q,1, // pink
-		q,q,q,1, // lblue
-		q,q,q,1, // lblue
-		0,q,0,1, // lgreen
-		0,q,0,1, // lgreen
-		0,q,q,1, // pink
-		
-		0,q,0,1, // lgreen
-		q,q,q,1, // lblue
-		q,q,q,1, // lblue
-		q,q,0,1, // dgreen
-		q,q,0,1, // dgreen
-		0,q,0,1, // lgreen
-		
-		q,q,q,1, // lblue
-		0,q,q,1, // pink
-		0,q,q,1, // pink
-		0,0,q,1, // purple
-		0,0,q,1, // purple
-		q,q,q,1, // lblue
-		
-		0,0,q,1, // purple
-		q,0,q,1, // dblue
-		q,0,q,1, // dblue
-		q,q,q,1, // lblue
-		q,q,q,1, // lblue
-		0,0,q,1, // purple
-		
-	]);
+	const unitCubeLines = new Float32Array(matmul4(scaler, unitCubeLines1));
 	gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, unitCube, gl.STATIC_DRAW);
+	gl.bufferData(gl.ARRAY_BUFFER, unitCubeLines, gl.STATIC_DRAW);
 	
 	let then = Date.now()
 	function repaint() {
@@ -346,13 +348,20 @@ async function gl_init(canvas) {
 		var px = playerPosition[0];
 		var py = playerPosition[1];
 		var pz = playerPosition[2];
-		var transformValues = [
+		var rotateXY = [
 			c,	0,	-s,	0,
 			0,	1,	0,	0,
 			s,	0,	c,	0,
 			px,	py,	pz,	1
 		];
-		gl.uniformMatrix4fv(transformLocation, false, new Float32Array(transformValues));
+		// Apply an axis swapping transformation.
+		const axisSwap = [
+			1,0,0,0,
+			0,0,1,0,
+			0,1,0,0,
+			0,0,0,1
+		]
+		gl.uniformMatrix4fv(transformLocation, false, new Float32Array(matmul4(rotateXY, axisSwap)));
 		
 		/*
 		const cubeColours = new Uint8Array([
@@ -396,7 +405,7 @@ async function gl_init(canvas) {
 setInterval(update, 300);
 setInterval(repaint, 100);
 
-function m4mul(m, n) {
+function matmul4(m, n) {
 	/* Column first matrixes
 	(
 	Here we multiply 2 column-first matrices. We represent the matrix with the columns (e.g., mi1) horizontally.
@@ -409,47 +418,92 @@ function m4mul(m, n) {
 	
 	The arrays are stored column-first, contiguously, in one array. To access the ijth element,
 		mij = m[j * 4 + i]
+	.
 	
 	Mathematically, the ijth component of the result matrix is the ith row of the first matrix dot the jth column of the second.
 		mn23 = m's r2 dot n's c3
-		= m2i ni3 (Einstein summation convention
-		= m[4*2+0]*n[4*0+3] + m[4*2+1]*n[4*1+3] + m[4*2+2]*n[4*2+3] + m[4*2+0]*n[4*3+3]
+		= m2i ni3 (Einstein summation convention)
+		= m[4*i+2]n[4*3+i] (Einstein summation convention)
 	
-	This doesn't of course require matrix N to have only 16 items; n can be an arbitrarily large collection of 4-vectors. Our code
-	uses 4-vector arrays of floats to represent shape vertices.
+	This does of course generalise to matrices n with more columns ci; n can be an arbitrarily large collection of 4-vectors. 
+	Our code uses 4-vector arrays of floats to represent shape vertices. Translating a shape S with matrix T is:
+		T * S
+	.
+	
+	Translations can be chained; applying transformation T1 then T2 to shape S is
+		T2 * (T1 * S)
+		= (T2 * T1) * S
+	due to the associativity of matrix multiplication.
+	
 	*/
-	
 	const vecs = n.length / 4;
 	if (vecs === 4) {
 		return [
-			m[4*0+0]*n[4*0+0] + m[4*0+1]*n[4*1+0] + m[4*1+2]*n[4*2+0] + m[4*3+0]*n[4*3+0], // mn00
-			m[4*1+0]*n[4*0+0] + m[4*1+1]*n[4*1+0] + m[4*1+2]*n[4*2+0] + m[4*1+0]*n[4*3+0], // mn10
-			m[4*2+0]*n[4*0+0] + m[4*2+1]*n[4*1+0] + m[4*2+2]*n[4*2+0] + m[4*2+0]*n[4*3+0], // mn20
-			m[4*3+0]*n[4*0+0] + m[4*3+1]*n[4*1+0] + m[4*3+2]*n[4*2+0] + m[4*3+0]*n[4*3+0], // mn30
-			m[4*0+0]*n[4*0+1] + m[4*0+1]*n[4*1+1] + m[4*1+2]*n[4*2+1] + m[4*3+0]*n[4*3+1], // mn01
-			m[4*1+0]*n[4*0+1] + m[4*1+1]*n[4*1+1] + m[4*1+2]*n[4*2+1] + m[4*1+0]*n[4*3+1], // mn11
-			m[4*2+0]*n[4*0+1] + m[4*2+1]*n[4*1+1] + m[4*2+2]*n[4*2+1] + m[4*2+0]*n[4*3+1], // mn21
-			m[4*3+0]*n[4*0+1] + m[4*3+1]*n[4*1+1] + m[4*3+2]*n[4*2+1] + m[4*3+0]*n[4*3+1], // mn31
-			m[4*0+0]*n[4*0+2] + m[4*0+1]*n[4*1+2] + m[4*1+2]*n[4*2+2] + m[4*3+0]*n[4*3+2], // mn02
-			m[4*1+0]*n[4*0+2] + m[4*1+1]*n[4*1+2] + m[4*1+2]*n[4*2+2] + m[4*1+0]*n[4*3+2], // mn12
-			m[4*2+0]*n[4*0+2] + m[4*2+1]*n[4*1+2] + m[4*2+2]*n[4*2+2] + m[4*2+0]*n[4*3+2], // mn22
-			m[4*3+0]*n[4*0+2] + m[4*3+1]*n[4*1+2] + m[4*3+2]*n[4*2+2] + m[4*3+0]*n[4*3+2], // mn32
-			m[4*0+0]*n[4*0+3] + m[4*0+1]*n[4*1+3] + m[4*1+2]*n[4*2+3] + m[4*3+0]*n[4*3+3], // mn03
-			m[4*1+0]*n[4*0+3] + m[4*1+1]*n[4*1+3] + m[4*1+2]*n[4*2+3] + m[4*1+0]*n[4*3+3], // mn13
-			m[4*2+0]*n[4*0+3] + m[4*2+1]*n[4*1+3] + m[4*2+2]*n[4*2+3] + m[4*2+0]*n[4*3+3], // mn23
-			m[4*3+0]*n[4*0+3] + m[4*3+1]*n[4*1+3] + m[4*3+2]*n[4*2+3] + m[4*3+0]*n[4*3+3]  // mn33
+			m[4*0+0]*n[4*0+0] + m[4*1+0]*n[4*0+1] + m[4*2+0]*n[4*0+2] + m[4*3+0]*n[4*0+3], // mn00
+			m[4*0+1]*n[4*0+0] + m[4*1+1]*n[4*0+1] + m[4*2+1]*n[4*0+2] + m[4*3+1]*n[4*0+3], // mn10
+			m[4*0+2]*n[4*0+0] + m[4*1+2]*n[4*0+1] + m[4*2+2]*n[4*0+2] + m[4*3+2]*n[4*0+3], // mn20
+			m[4*0+3]*n[4*0+0] + m[4*1+3]*n[4*0+1] + m[4*2+3]*n[4*0+2] + m[4*3+3]*n[4*0+3], // mn30
+			m[4*0+0]*n[4*1+0] + m[4*1+0]*n[4*1+1] + m[4*2+0]*n[4*1+2] + m[4*3+0]*n[4*1+3], // mn01
+			m[4*0+1]*n[4*1+0] + m[4*1+1]*n[4*1+1] + m[4*2+1]*n[4*1+2] + m[4*3+1]*n[4*1+3], // mn11
+			m[4*0+2]*n[4*1+0] + m[4*1+2]*n[4*1+1] + m[4*2+2]*n[4*1+2] + m[4*3+2]*n[4*1+3], // mn21
+			m[4*0+3]*n[4*1+0] + m[4*1+3]*n[4*1+1] + m[4*2+3]*n[4*1+2] + m[4*3+3]*n[4*1+3], // mn31
+			m[4*0+0]*n[4*2+0] + m[4*1+0]*n[4*2+1] + m[4*2+0]*n[4*2+2] + m[4*3+0]*n[4*2+3], // mn02
+			m[4*0+1]*n[4*2+0] + m[4*1+1]*n[4*2+1] + m[4*2+1]*n[4*2+2] + m[4*3+1]*n[4*2+3], // mn12
+			m[4*0+2]*n[4*2+0] + m[4*1+2]*n[4*2+1] + m[4*2+2]*n[4*2+2] + m[4*3+2]*n[4*2+3], // mn22
+			m[4*0+3]*n[4*2+0] + m[4*1+3]*n[4*2+1] + m[4*2+3]*n[4*2+2] + m[4*3+3]*n[4*2+3], // mn32
+			m[4*0+0]*n[4*3+0] + m[4*1+0]*n[4*3+1] + m[4*2+0]*n[4*3+2] + m[4*3+0]*n[4*3+3], // mn03
+			m[4*0+1]*n[4*3+0] + m[4*1+1]*n[4*3+1] + m[4*2+1]*n[4*3+2] + m[4*3+1]*n[4*3+3], // mn13
+			m[4*0+2]*n[4*3+0] + m[4*1+2]*n[4*3+1] + m[4*2+2]*n[4*3+2] + m[4*3+2]*n[4*3+3], // mn23
+			m[4*0+3]*n[4*3+0] + m[4*1+3]*n[4*3+1] + m[4*2+3]*n[4*3+2] + m[4*3+3]*n[4*3+3]  // mn33
 		]
 	} else {
 		
 		let returnVal = new Array(4*vecs);
 		for (let i=0; i<vecs; ++i) {
-			returnVal[4*i+0] = m[4*0+0]*n[4*0+0] + m[4*0+1]*n[4*1+0] + m[4*1+2]*n[4*2+0] + m[4*3+0]*n[4*3+0]; // mn0i
-			returnVal[4*i+1] = m[4*1+0]*n[4*0+0] + m[4*1+1]*n[4*1+0] + m[4*1+2]*n[4*2+0] + m[4*1+0]*n[4*3+0]; // mn1i
-			returnVal[4*i+2] = m[4*2+0]*n[4*0+0] + m[4*2+1]*n[4*1+0] + m[4*2+2]*n[4*2+0] + m[4*2+0]*n[4*3+0]; // mn2i
-			returnVal[4*i+3] = m[4*3+0]*n[4*0+0] + m[4*3+1]*n[4*1+0] + m[4*3+2]*n[4*2+0] + m[4*3+0]*n[4*3+0]; // mn3i
+			returnVal[4*i+0] = m[4*0+0]*n[4*i+0] + m[4*1+0]*n[4*i+1] + m[4*2+0]*n[4*i+2] + m[4*3+0]*n[4*i+3]; // mn0i
+			returnVal[4*i+1] = m[4*0+1]*n[4*i+0] + m[4*1+1]*n[4*i+1] + m[4*2+1]*n[4*i+2] + m[4*3+1]*n[4*i+3]; // mn1i
+			returnVal[4*i+2] = m[4*0+2]*n[4*i+0] + m[4*1+2]*n[4*i+1] + m[4*2+2]*n[4*i+2] + m[4*3+2]*n[4*i+3]; // mn2i
+			returnVal[4*i+3] = m[4*0+3]*n[4*i+0] + m[4*1+3]*n[4*i+1] + m[4*2+3]*n[4*i+2] + m[4*3+3]*n[4*i+3]; // mn3i
 		}
 		return returnVal;
 		
 	}
+	
+}
+
+function debugMatmul() {
+	
+	function debugMatmulElem(i,j) {
+		console.log([m[4*0+i], m[4*1+i], m[4*2+i], m[4*3+i]]); // With j = 0, need m[2,6,10,14]
+		console.log([n[4*j+0], n[4*j+1], n[4*j+2], n[4*j+3]]);
+		console.log(m[4*j+0]*n[4*0+i] + m[4*j+1]*n[4*1+i] + m[4*j+2]*n[4*2+i] + m[4*j+3]*n[4*3+i]);
+	}
+	function printMatrix(m) {
+		console.log([m[4*0+0],m[4*0+1],m[4*0+2],m[4*0+3]]);
+		console.log([m[4*1+0],m[4*1+1],m[4*1+2],m[4*1+3]]);
+		console.log([m[4*2+0],m[4*2+1],m[4*2+2],m[4*2+3]]);
+		console.log([m[4*3+0],m[4*3+1],m[4*3+2],m[4*3+3]]);
+	}
+	
+	const swapxz = [
+		0,0,1,0,
+		0,1,0,0,
+		1,0,0,0,
+		0,0,0,1
+	];
+	const m1 = [
+		1,2,3,0,
+		4,5,6,0,
+		7,8,9,0,
+		1,1,1,1
+	];
+	const m = swapxz;
+	const n = m1;
+	
+	printMatrix(m);
+	console.log(" * ");
+	printMatrix(n);
+	console.log(" = ");
+	printMatrix(matmul4(m, n));
 	
 }
