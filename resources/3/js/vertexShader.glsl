@@ -7,5 +7,5 @@ varying vec4 v_color;
 
 void main() {
     v_color = a_color;
-    gl_Position = u_transform * a_position + v_color;
+    gl_Position = u_transform * a_position;
 }

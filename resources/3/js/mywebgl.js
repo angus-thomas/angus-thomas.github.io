@@ -141,51 +141,87 @@ async function gl_init(canvas) {
 	const unitColours = new Uint8Array([
 		163,  73, 164, 255, // purple
 		255, 127,  39, 244, // orange
+		255, 127,  39, 244, // orange
 		63,  72, 204, 255, // dblue
+		63,  72, 204, 255, // dblue
+		163,  73, 164, 255, // purple
 		
 		255, 127,  39, 244, // orange
 		255, 242,   0, 255, // yellow
-		 63,  72, 204, 255, // dblue
-		
-		 63,  72, 204, 255, // dblue
 		255, 242,   0, 255, // yellow
-		  0, 162, 232, 255, // lblue
-		
-		  0, 162, 232, 255, // lblue
-		255, 242,   0, 255, // yellow
-		 34, 177,  76, 255, // dgreen
-		
-		 34, 177,  76, 255, // dgreen
-		255, 242,   0, 255, // yellow
-		181, 230,  29, 255, // green
-		
-		181, 230,  29, 255, // green
-		255, 242,   0, 255, // yellow
+		63,  72, 204, 255, // dblue
+		63,  72, 204, 255, // dblue
 		255, 127,  39, 244, // orange
 		
-		255, 127,  39, 244, // orange
-		163,  73, 164, 255, // purple
-		181, 230,  29, 255, // green
+		 63,  72, 204, 255, // dblue
+		 255, 242,   0, 255, // yellow
+		 255, 242,   0, 255, // yellow
+		 0, 162, 232, 255, // lblue
+		 0, 162, 232, 255, // lblue
+		 63,  72, 204, 255, // dblue
 		
-		181, 230,  29, 255, // green
-		163,  73, 164, 255, // purple
-		255, 174, 201, 255, // pink
-		
-		255, 174, 201, 255, // pink
 		  0, 162, 232, 255, // lblue
-		181, 230,  29, 255, // green
-		
-		181, 230,  29, 255, // green
+		  255, 242,   0, 255, // yellow
+		  255, 242,   0, 255, // yellow
+		  34, 177,  76, 255, // dgreen
+		  34, 177,  76, 255, // dgreen
 		  0, 162, 232, 255, // lblue
+		
+		 34, 177,  76, 255, // dgreen
+		 255, 242,   0, 255, // yellow
+		 255, 242,   0, 255, // yellow
+		 181, 230,  29, 255, // green
+		 181, 230,  29, 255, // green
 		 34, 177,  76, 255, // dgreen
 		
-		  0, 162, 232, 255, // lblue
-		255, 174, 201, 255, // pink
+		181, 230,  29, 255, // green
+		255, 242,   0, 255, // yellow
+		255, 242,   0, 255, // yellow
+		255, 127,  39, 244, // orange
+		255, 127,  39, 244, // orange
+		181, 230,  29, 255, // green
+		
+		255, 127,  39, 244, // orange
 		163,  73, 164, 255, // purple
+		163,  73, 164, 255, // purple
+		181, 230,  29, 255, // green
+		181, 230,  29, 255, // green
+		255, 127,  39, 244, // orange
+		
+		181, 230,  29, 255, // green
+		163,  73, 164, 255, // purple
+		163,  73, 164, 255, // purple
+		255, 174, 201, 255, // pink
+		255, 174, 201, 255, // pink
+		181, 230,  29, 255, // green
+		
+		255, 174, 201, 255, // pink
+		255, 174, 201, 255, // pink
+		255, 174, 201, 255, // pink
+		  0, 162, 232, 255, // lblue
+		  0, 162, 232, 255, // lblue
+		181, 230,  29, 255, // green
+		
+		181, 230,  29, 255, // green
+		0, 162, 232, 255, // lblue
+		0, 162, 232, 255, // lblue
+		34, 177,  76, 255, // dgreen
+		34, 177,  76, 255, // dgreen
+		181, 230,  29, 255, // green
+		
+		  0, 162, 232, 255, // lblue
+		  255, 174, 201, 255, // pink
+		  255, 174, 201, 255, // pink
+		  163,  73, 164, 255, // purple
+		  163,  73, 164, 255, // purple
+		  0, 162, 232, 255, // lblue
 		
 		163,  73, 164, 255, // purple
-		 63,  72, 204, 255, // dblue
-		  0, 162, 232, 255, // lblue
+		63,  72, 204, 255, // dblue
+		63,  72, 204, 255, // dblue
+		0, 162, 232, 255, // lblue
+		0, 162, 232, 255, // lblue
+		163,  73, 164, 255, // pursple
 		
 	]);
 	gl.bindBuffer(gl.ARRAY_BUFFER, unitColoursBuffer);
@@ -197,53 +233,89 @@ async function gl_init(canvas) {
 	const positionLocation = gl.getAttribLocation(program, "a_position");
 	const positionBuffer = gl.createBuffer();
 	const unitCube = new Float32Array([
-		-q,-q,q + dz, 1, // purple
-		-q,-q,-q + dz, 1, // orange
-		q,-q,q + dz, 1, // dblue
+		0,0,q,1, // purple
+		0,0,0,1, // orange
+		0,0,0,1, // orange
+		q,0,q,1, // dblue
+		q,0,q,1, // dblue
+		0,0,q,1, // purple
 		
-		-q,-q,-q + dz, 1, // orange
-		-q,q,-q + dz, 1, // yellow
-		q,-q,q + dz, 1, // dblue
+		0,0,0,1, // orange
+		q,0,0,1, // yellow
+		q,0,0,1, // yellow
+		q,0,q,1, // dblue
+		q,0,q,1, // dblue
+		0,0,0,1, // orange
 		
-		q,-q,q + dz, 1, // dblue
-		-q,q,-q + dz, 1, // yellow
-		q,q,q + dz, 1, // lblue
+		q,0,q,1, // dblue
+		q,0,0,1, // yellow
+		q,0,0,1, // yellow
+		q,q,q,1, // lblue
+		q,q,q,1, // lblue
+		q,0,q,1, // dblue
 		
-		q,q,q + dz, 1, // lblue
-		-q,q,-q + dz, 1, // yellow
-		q,q,-q + dz, 1, // dgreen
+		q,q,q,1, // lblue
+		q,0,0,1, // yellow
+		q,0,0,1, // yellow
+		q,q,0,1, // dgreen
+		q,q,0,1, // dgreen
+		q,q,q,1, // lblue
 		
-		q,q,-q + dz, 1, // dgreen
-		-q,q,-q + dz, 1, // yellow
-		-q,q,-q + dz, 1, // lgreen
+		q,q,0,1, // dgreen
+		q,0,0,1, // yellow
+		q,0,0,1, // yellow
+		0,q,0,1, // lgreen
+		0,q,0,1, // lgreen
+		q,q,0,1, // dgreen
 		
-		-q,q,-q + dz, 1, // lgreen
-		-q,q,-q + dz, 1, // yellow
-		-q,-q,-q + dz, 1, // orange
+		0,q,0,1, // lgreen
+		q,0,0,1, // yellow
+		q,0,0,1, // yellow
+		0,0,0,1, // orange
+		0,0,0,1, // orange
+		0,q,0,1, // lgreen
 		
-		-q,-q,-q + dz, 1, // orange
-		-q,-q,q + dz, 1, // purple
-		-q,q,-q + dz, 1, // lgreen
+		0,0,0,1, // orange
+		0,0,q,1, // purple
+		0,0,q,1, // purple
+		0,q,0,1, // lgreen
+		0,q,0,1, // lgreen
+		0,0,0,1, // orange
 		
-		-q,q,-q + dz, 1, // lgreen
-		-q,-q,q + dz, 1, // purple
-		-q,q,q + dz, 1, // pink
+		0,q,0,1, // lgreen
+		0,0,q,1, // purple
+		0,0,q,1, // purple
+		0,q,q,1, // pink
+		0,q,q,1, // pink
+		0,q,0,1, // lgreen
 		
-		-q,q,q + dz, 1, // pink
-		q,q,q + dz, 1, // lblue
-		-q,q,-q + dz, 1, // lgreen
+		0,q,q,1, // pink
+		q,q,q,1, // lblue
+		q,q,q,1, // lblue
+		0,q,0,1, // lgreen
+		0,q,0,1, // lgreen
+		0,q,q,1, // pink
 		
-		-q,q,-q + dz, 1, // lgreen
-		q,q,q + dz, 1, // lblue
-		q,q,-q + dz, 1, // dgreen
+		0,q,0,1, // lgreen
+		q,q,q,1, // lblue
+		q,q,q,1, // lblue
+		q,q,0,1, // dgreen
+		q,q,0,1, // dgreen
+		0,q,0,1, // lgreen
 		
-		q,q,q + dz, 1, // lblue
-		-q,q,q + dz, 1, // pink
-		-q,-q,q + dz, 1, // purple
+		q,q,q,1, // lblue
+		0,q,q,1, // pink
+		0,q,q,1, // pink
+		0,0,q,1, // purple
+		0,0,q,1, // purple
+		q,q,q,1, // lblue
 		
-		-q,-q,q + dz, 1, // purple
-		q,-q,q + dz, 1, // dblue
-		q,q,q + dz, 1 // lblue
+		0,0,q,1, // purple
+		q,0,q,1, // dblue
+		q,0,q,1, // dblue
+		q,q,q,1, // lblue
+		q,q,q,1, // lblue
+		0,0,q,1, // purple
 		
 	]);
 	gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -279,7 +351,7 @@ async function gl_init(canvas) {
 			0,	1,	0,	0,
 			s,	0,	c,	0,
 			px,	py,	pz,	1
-		]
+		];
 		gl.uniformMatrix4fv(transformLocation, false, new Float32Array(transformValues));
 		
 		/*
@@ -314,7 +386,7 @@ async function gl_init(canvas) {
 		gl.vertexAttribPointer(colourLocation, 4, gl.UNSIGNED_BYTE, true, 0, 0); // 4-vectors of 8-bit unsigned integers hich should be normalised to range 0-1
 		
 		// Draw the red square
-		gl.drawArrays(gl.TRIANGLES,	0,	6*2*3);
+		gl.drawArrays(gl.LINES,	0,	6*2*6);
 		
 	}
 	
@@ -323,3 +395,61 @@ async function gl_init(canvas) {
 
 setInterval(update, 300);
 setInterval(repaint, 100);
+
+function m4mul(m, n) {
+	/* Column first matrixes
+	(
+	Here we multiply 2 column-first matrices. We represent the matrix with the columns (e.g., mi1) horizontally.
+		m00 m10 m20 m30  x  n00 n10 n20 n30  =  mn00 mn10 mn20 mn30   < c0
+		m01 m11 m21 m31  x  n01 n11 n21 n31  =  mn01 mn11 mn21 mn31   < c1
+		m02 m12 m22 m32  x  n02 n12 n22 n32  =  mn02 mn12 mn22 mn32   < c2
+		m03 m13 m23 m33  x  n03 n13 n23 n33  =  mn03 mn13 mn23 mn33   < c3
+		^   ^   ^   ^ 
+		r0  r1  r2  r3 
+	
+	The arrays are stored column-first, contiguously, in one array. To access the ijth element,
+		mij = m[j * 4 + i]
+	
+	Mathematically, the ijth component of the result matrix is the ith row of the first matrix dot the jth column of the second.
+		mn23 = m's r2 dot n's c3
+		= m2i ni3 (Einstein summation convention
+		= m[4*2+0]*n[4*0+3] + m[4*2+1]*n[4*1+3] + m[4*2+2]*n[4*2+3] + m[4*2+0]*n[4*3+3]
+	
+	This doesn't of course require matrix N to have only 16 items; n can be an arbitrarily large collection of 4-vectors. Our code
+	uses 4-vector arrays of floats to represent shape vertices.
+	*/
+	
+	const vecs = n.length / 4;
+	if (vecs === 4) {
+		return [
+			m[4*0+0]*n[4*0+0] + m[4*0+1]*n[4*1+0] + m[4*1+2]*n[4*2+0] + m[4*3+0]*n[4*3+0], // mn00
+			m[4*1+0]*n[4*0+0] + m[4*1+1]*n[4*1+0] + m[4*1+2]*n[4*2+0] + m[4*1+0]*n[4*3+0], // mn10
+			m[4*2+0]*n[4*0+0] + m[4*2+1]*n[4*1+0] + m[4*2+2]*n[4*2+0] + m[4*2+0]*n[4*3+0], // mn20
+			m[4*3+0]*n[4*0+0] + m[4*3+1]*n[4*1+0] + m[4*3+2]*n[4*2+0] + m[4*3+0]*n[4*3+0], // mn30
+			m[4*0+0]*n[4*0+1] + m[4*0+1]*n[4*1+1] + m[4*1+2]*n[4*2+1] + m[4*3+0]*n[4*3+1], // mn01
+			m[4*1+0]*n[4*0+1] + m[4*1+1]*n[4*1+1] + m[4*1+2]*n[4*2+1] + m[4*1+0]*n[4*3+1], // mn11
+			m[4*2+0]*n[4*0+1] + m[4*2+1]*n[4*1+1] + m[4*2+2]*n[4*2+1] + m[4*2+0]*n[4*3+1], // mn21
+			m[4*3+0]*n[4*0+1] + m[4*3+1]*n[4*1+1] + m[4*3+2]*n[4*2+1] + m[4*3+0]*n[4*3+1], // mn31
+			m[4*0+0]*n[4*0+2] + m[4*0+1]*n[4*1+2] + m[4*1+2]*n[4*2+2] + m[4*3+0]*n[4*3+2], // mn02
+			m[4*1+0]*n[4*0+2] + m[4*1+1]*n[4*1+2] + m[4*1+2]*n[4*2+2] + m[4*1+0]*n[4*3+2], // mn12
+			m[4*2+0]*n[4*0+2] + m[4*2+1]*n[4*1+2] + m[4*2+2]*n[4*2+2] + m[4*2+0]*n[4*3+2], // mn22
+			m[4*3+0]*n[4*0+2] + m[4*3+1]*n[4*1+2] + m[4*3+2]*n[4*2+2] + m[4*3+0]*n[4*3+2], // mn32
+			m[4*0+0]*n[4*0+3] + m[4*0+1]*n[4*1+3] + m[4*1+2]*n[4*2+3] + m[4*3+0]*n[4*3+3], // mn03
+			m[4*1+0]*n[4*0+3] + m[4*1+1]*n[4*1+3] + m[4*1+2]*n[4*2+3] + m[4*1+0]*n[4*3+3], // mn13
+			m[4*2+0]*n[4*0+3] + m[4*2+1]*n[4*1+3] + m[4*2+2]*n[4*2+3] + m[4*2+0]*n[4*3+3], // mn23
+			m[4*3+0]*n[4*0+3] + m[4*3+1]*n[4*1+3] + m[4*3+2]*n[4*2+3] + m[4*3+0]*n[4*3+3]  // mn33
+		]
+	} else {
+		
+		let returnVal = new Array(4*vecs);
+		for (let i=0; i<vecs; ++i) {
+			returnVal[4*i+0] = m[4*0+0]*n[4*0+0] + m[4*0+1]*n[4*1+0] + m[4*1+2]*n[4*2+0] + m[4*3+0]*n[4*3+0]; // mn0i
+			returnVal[4*i+1] = m[4*1+0]*n[4*0+0] + m[4*1+1]*n[4*1+0] + m[4*1+2]*n[4*2+0] + m[4*1+0]*n[4*3+0]; // mn1i
+			returnVal[4*i+2] = m[4*2+0]*n[4*0+0] + m[4*2+1]*n[4*1+0] + m[4*2+2]*n[4*2+0] + m[4*2+0]*n[4*3+0]; // mn2i
+			returnVal[4*i+3] = m[4*3+0]*n[4*0+0] + m[4*3+1]*n[4*1+0] + m[4*3+2]*n[4*2+0] + m[4*3+0]*n[4*3+0]; // mn3i
+		}
+		return returnVal;
+		
+	}
+	
+}
