@@ -52,19 +52,47 @@
 			<canvas id="glCanvas" tabindex="-1" width="350" height="350"></canvas>
 			<script src="/resources/3/js/mywebgl.js" type="module"></script>
 			<div class="message">
-				<p>I've been preparing to start using OpenGL this evening! This will be my first time coding for a GPU. I intend to feed in position and orientation coordinates of an observer, and transform my trusty red square.
+				<img src="resources/3/img/cubemesh.png" style="float: right; width: 300; height: 300;" />
+				<p>
+					I've created a cube! I sketched the cube out in Paint (pictured), ascribed coordinates to each corner, flattened it into a mesh, and then specified each line to the GPU as a pair of coordinates.
+					The colours were essential for debugging vertices in the wrong place and misorientation of the x/y/z axes.
+					The flattened mesh was essential for defining triangles, which need to be specified with vertexes in an anticlockwise chirality for the faces to point outwards.
+				</p>
+				<p>
+					I needed to transform the created cube: I wanted it to spin, and it was upside-down.
+				</p>
+				<p>
+					A transformation is assembled from elementary transformations with the 'and then' operator. Mathematically, transformations are represented by a matrix, with the 'and then' operator as a matrix multiplication. 
+				</p>
+				<p>
+					Composing a transformation is only required once per frame, so should be coded in JavaScript, not for the GPU.
+					The GPU runs calculation functions (or <em>shaders</em>) that are called for each vertex in the scene so should be kept simple for performance reasons. Because the composition of the global transformation matrix doesn't need repeating for all vertices, and because there's a performance penalty for shuttling data between the CPU and the GPU, it should run on the CPU, in the JavaScript code.
+				</p>
+				<p>
+					The GPU's role is then to set each vertex's colour, and to perform a single matrix multiplication to transform its position from x-y-z space into a coordinate system with the observer at the origin, and the line of sight along the negative Y axis (or something).
+				</p>
+				<p>
+					Computing these transformation matrices in JavaScript required me to code up a matrix multiplication function.
+					Unintuitively, in graphics programming, matrices are <em>column major</em>, which complicates the process.
+					There's a long comment in the JavaScript code with more detailed information on this.
+				</p>
+				
+				<span class="timestamp">30<sup>th</sup> March 2025 20:56</span>
+			</div>
+			<div class="message">
+				<p>
+					I've been preparing to start using OpenGL this evening! This will be my first time coding for a GPU. I intend to feed in position and orientation coordinates of an observer, and transform my trusty red square.
 					I've just put in some JS to use the WASD keys to capture observer position, now to create the transformation matrices and use them.
-					</p>
-					<p>...</p>
-					<p>
-						At long last I have movement of my square!
-						It looks like 2 spinning squares rather than a cube, as I haven't meshed the cube properly; I've specified 8 vertices, and the shader has only drawn triangles between some of them.
-					</p>
-					<p>
-						
-						As promised, the GPU has a wealth of linear algebra methods. Unfortunately, the linear algera used to find the observer's transformation matrix, that occurs once per frame, needs to run on the CPU, and therefore needs to be coded up in JS (eugh).
-					</p>
-				</p><span class="timestamp">28<sup>th</sup> March 2025 01:55</span>
+				</p>
+				<p>
+					At long last I have movement of my square! [Two rotating red squares—the front and back faces of a cube— are visble.]
+					It looks like 2 spinning squares rather than a cube, as I haven't meshed the cube properly; I've specified 8 vertices, and the shader has only drawn triangles between some of them.
+				</p>
+				<p>
+					
+					As promised, the GPU has a wealth of linear algebra methods. Unfortunately, the linear algera used to find the observer's transformation matrix, that occurs once per frame, needs to run on the CPU, and therefore needs to be coded up in JS (eugh).
+				</p>
+				<span class="timestamp">28<sup>th</sup> March 2025 01:55</span>
 			</div>
 		</section>
 	</div>
