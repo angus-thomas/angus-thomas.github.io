@@ -10,130 +10,155 @@ const KEY_W = 4
 const KEY_A = 5
 const KEY_S = 6
 const KEY_D = 7
+const progStart = Date.now();
 
 /**
  * @type {boolean[]}
  */
 const keysPressed = [false, false, false, false, false, false, false, false]
-const unitCubeLines1 = [0,0,1,1, // purple
-	0,0,0,1, // orange
-	0,0,0,1, // orange
-	1,0,1,1, // dblue
-	1,0,1,1, // dblue
-	0,0,1,1, // purple
+const cubeVerts = [
 	
-	0,0,0,1, // orange
-	1,0,0,1, // yellow
-	1,0,0,1, // yellow
-	1,0,1,1, // dblue
-	1,0,1,1, // dblue
-	0,0,0,1, // orange
+	/*
+		const cubeColours = new Uint8Array([
+			255, 127,  39, 244, // orange
+			255, 242,   0, 255, // yellow
+			163,  73, 164, 255, // purple
+			63,  72, 204, 255, // dblue
+			181, 230,  29, 255, // lgreen
+			34, 177,  76, 255, // dgreen
+			0, 162, 232, 255, // lblue
+			255, 174, 201, 255, // pink
+		])
+		
+		0,0,1, // orange
+		0,0,0, // yellow
+		0,1,1, // purple
+		1,1,1, // dblue
+		0,0,0, // lgreen
+		1,0,0, // dgreen
+		0,1,0, // pink
+		1,1,0, // lblue
+		*/
+	0,1,1, // purple
+	0,0,1, // orange
+	0,0,1, // orange
+	1,1,1, // dblue
+	1,1,1, // dblue
+	0,1,1, // purple
 	
-	1,0,1,1, // dblue
-	1,0,0,1, // yellow
-	1,0,0,1, // yellow
-	1,1,1,1, // lblue
-	1,1,1,1, // lblue
-	1,0,1,1, // dblue
+	0,0,1, // orange
+	1,0,1, // yellow
+	1,0,1, // yellow
+	1,1,1, // dblue
+	1,1,1, // dblue
+	0,0,1, // orange
 	
-	1,1,1,1, // lblue
-	1,0,0,1, // yellow
-	1,0,0,1, // yellow
-	1,1,0,1, // dgreen
-	1,1,0,1, // dgreen
-	1,1,1,1, // lblue
+	1,1,1, // dblue
+	1,0,1, // yellow
+	1,0,1, // yellow
+	1,1,0, // lblue
+	1,1,0, // lblue
+	1,1,1, // dblue
 	
-	1,1,0,1, // dgreen
-	1,0,0,1, // yellow
-	1,0,0,1, // yellow
-	0,1,0,1, // lgreen
-	0,1,0,1, // lgreen
-	1,1,0,1, // dgreen
+	1,1,0, // lblue
+	1,0,1, // yellow
+	1,0,1, // yellow
+	1,0,0, // dgreen
+	1,0,0, // dgreen
+	1,1,0, // lblue
 	
-	0,1,0,1, // lgreen
-	1,0,0,1, // yellow
-	1,0,0,1, // yellow
-	0,0,0,1, // orange
-	0,0,0,1, // orange
-	0,1,0,1, // lgreen
+	1,0,0, // dgreen
+	1,0,1, // yellow
+	1,0,1, // yellow
+	0,0,0, // lgreen
+	0,0,0, // lgreen
+	1,0,0, // dgreen
 	
-	0,0,0,1, // orange
-	0,0,1,1, // purple
-	0,0,1,1, // purple
-	0,1,0,1, // lgreen
-	0,1,0,1, // lgreen
-	0,0,0,1, // orange
+	0,0,0, // lgreen
+	1,0,1, // yellow
+	1,0,1, // yellow
+	0,0,1, // orange
+	0,0,1, // orange
+	0,0,0, // lgreen
 	
-	0,1,0,1, // lgreen
-	0,0,1,1, // purple
-	0,0,1,1, // purple
-	0,1,1,1, // pink
-	0,1,1,1, // pink
-	0,1,0,1, // lgreen
+	0,0,1, // orange
+	0,1,1, // purple
+	0,1,1, // purple
+	0,0,0, // lgreen
+	0,0,0, // lgreen
+	0,0,1, // orange
 	
-	0,1,1,1, // pink
-	1,1,1,1, // lblue
-	1,1,1,1, // lblue
-	0,1,0,1, // lgreen
-	0,1,0,1, // lgreen
-	0,1,1,1, // pink
+	0,0,0, // lgreen
+	0,1,1, // purple
+	0,1,1, // purple
+	0,1,0, // pink
+	0,1,0, // pink
+	0,0,0, // lgreen
 	
-	0,1,0,1, // lgreen
-	1,1,1,1, // lblue
-	1,1,1,1, // lblue
-	1,1,0,1, // dgreen
-	1,1,0,1, // dgreen
-	0,1,0,1, // lgreen
+	0,1,0, // pink
+	1,1,0, // lblue
+	1,1,0, // lblue
+	0,0,0, // lgreen
+	0,0,0, // lgreen
+	0,1,0, // pink
 	
-	1,1,1,1, // lblue
-	0,1,1,1, // pink
-	0,1,1,1, // pink
-	0,0,1,1, // purple
-	0,0,1,1, // purple
-	1,1,1,1, // lblue
+	0,0,0, // lgreen
+	1,1,0, // lblue
+	1,1,0, // lblue
+	1,0,0, // dgreen
+	1,0,0, // dgreen
+	0,0,0, // lgreen
 	
-	0,0,1,1, // purple
-	1,0,1,1, // dblue
-	1,0,1,1, // dblue
-	1,1,1,1, // lblue
-	1,1,1,1, // lblue
-	0,0,1,1, // purple
+	1,1,0, // lblue
+	0,1,0, // pink
+	0,1,0, // pink
+	0,1,1, // purple
+	0,1,1, // purple
+	1,1,0, // lblue
+	
+	0,1,1, // purple
+	1,1,1, // dblue
+	1,1,1, // dblue
+	1,1,0, // lblue
+	1,1,0, // lblue
+	0,1,1, // purple
 	
 ]
-const unitCubeLineColours1 = [
+const cubeColours = [
+	
 	163,  73, 164, 255, // purple
 	255, 127,  39, 244, // orange
 	255, 127,  39, 244, // orange
-	63,  72, 204, 255, // dblue
-	63,  72, 204, 255, // dblue
+	 63,  72, 204, 255, // dblue
+	 63,  72, 204, 255, // dblue
 	163,  73, 164, 255, // purple
 	
 	255, 127,  39, 244, // orange
 	255, 242,   0, 255, // yellow
 	255, 242,   0, 255, // yellow
-	63,  72, 204, 255, // dblue
-	63,  72, 204, 255, // dblue
+	 63,  72, 204, 255, // dblue
+	 63,  72, 204, 255, // dblue
 	255, 127,  39, 244, // orange
 	
 	 63,  72, 204, 255, // dblue
-	 255, 242,   0, 255, // yellow
-	 255, 242,   0, 255, // yellow
-	 0, 162, 232, 255, // lblue
-	 0, 162, 232, 255, // lblue
+	255, 242,   0, 255, // yellow
+	255, 242,   0, 255, // yellow
+	  0, 162, 232, 255, // lblue
+	  0, 162, 232, 255, // lblue
 	 63,  72, 204, 255, // dblue
 	
 	  0, 162, 232, 255, // lblue
-	  255, 242,   0, 255, // yellow
-	  255, 242,   0, 255, // yellow
-	  34, 177,  76, 255, // dgreen
-	  34, 177,  76, 255, // dgreen
+	255, 242,   0, 255, // yellow
+	255, 242,   0, 255, // yellow
+	 34, 177,  76, 255, // dgreen
+	 34, 177,  76, 255, // dgreen
 	  0, 162, 232, 255, // lblue
 	
 	 34, 177,  76, 255, // dgreen
-	 255, 242,   0, 255, // yellow
-	 255, 242,   0, 255, // yellow
-	 181, 230,  29, 255, // green
-	 181, 230,  29, 255, // green
+	255, 242,   0, 255, // yellow
+	255, 242,   0, 255, // yellow
+	181, 230,  29, 255, // green
+	181, 230,  29, 255, // green
 	 34, 177,  76, 255, // dgreen
 	
 	181, 230,  29, 255, // green
@@ -165,24 +190,24 @@ const unitCubeLineColours1 = [
 	181, 230,  29, 255, // green
 	
 	181, 230,  29, 255, // green
-	0, 162, 232, 255, // lblue
-	0, 162, 232, 255, // lblue
-	34, 177,  76, 255, // dgreen
-	34, 177,  76, 255, // dgreen
+	  0, 162, 232, 255, // lblue
+	  0, 162, 232, 255, // lblue
+	 34, 177,  76, 255, // dgreen
+	 34, 177,  76, 255, // dgreen
 	181, 230,  29, 255, // green
 	
 	  0, 162, 232, 255, // lblue
-	  255, 174, 201, 255, // pink
-	  255, 174, 201, 255, // pink
-	  163,  73, 164, 255, // purple
-	  163,  73, 164, 255, // purple
+	255, 174, 201, 255, // pink
+	255, 174, 201, 255, // pink
+	163,  73, 164, 255, // purple
+	163,  73, 164, 255, // purple
 	  0, 162, 232, 255, // lblue
 	
 	163,  73, 164, 255, // purple
-	63,  72, 204, 255, // dblue
-	63,  72, 204, 255, // dblue
-	0, 162, 232, 255, // lblue
-	0, 162, 232, 255, // lblue
+	 63,  72, 204, 255, // dblue
+	 63,  72, 204, 255, // dblue
+	  0, 162, 232, 255, // lblue
+	  0, 162, 232, 255, // lblue
 	163,  73, 164, 255, // pursple
 	
 ]
@@ -303,12 +328,13 @@ async function gl_init(canvas) {
 	])
 	
 	// Retrieve the attribute location (outside the render loop)
-	const transformLocation = gl.getUniformLocation(program, "u_transform");
+	const viewLocation = gl.getUniformLocation(program, "u_view");
+	const modelLocation = gl.getUniformLocation(program, "u_model");
 	const colourLocation = gl.getAttribLocation(program, "a_color");
 	
 	// Load the shapes and colours into the GPU
 	const unitColoursBuffer = gl.createBuffer();
-	const unitCubeLineColours = new Uint8Array(unitCubeLineColours1);
+	const unitCubeLineColours = new Uint8Array(cubeColours);
 	gl.bindBuffer(gl.ARRAY_BUFFER, unitColoursBuffer);
 	gl.bufferData(gl.ARRAY_BUFFER, unitCubeLineColours, gl.STATIC_DRAW);
 	
@@ -317,11 +343,11 @@ async function gl_init(canvas) {
 	
 	const scaler = [q,0,0,0,0,q,0,0,0,0,q,0,0,0,0,1]
 	
-	const positionLocation = gl.getAttribLocation(program, "a_position");
-	const positionBuffer = gl.createBuffer();
-	const unitCubeLines = new Float32Array(matmul4(scaler, unitCubeLines1));
-	gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-	gl.bufferData(gl.ARRAY_BUFFER, unitCubeLines, gl.STATIC_DRAW);
+	const cubeLocation = gl.getAttribLocation(program, "a_position");
+	const cubeBuffer = gl.createBuffer();
+	const cubeLines = new Float32Array(cubeVerts);
+	gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, cubeLines, gl.STATIC_DRAW);
 	
 	let then = Date.now()
 	function repaint() {
@@ -335,66 +361,44 @@ async function gl_init(canvas) {
 		// Turn on culling. By default backfacing triangles
 		// will be culled.
 		gl.enable(gl.CULL_FACE);
-
+		
 		// Enable the depth buffer
 		gl.enable(gl.DEPTH_TEST);
 		
 		gl.useProgram(program);
 		
-		// Set the uniform transformation matrix
-		var theta = now /1000 % (2 * Math.PI);
-		var c = Math.cos(theta); // Temporarily use depth as rotation
-		var s = Math.sin(theta);
-		var px = playerPosition[0];
-		var py = playerPosition[1];
-		var pz = playerPosition[2];
-		var rotateXY = [
-			c,	0,	-s,	0,
-			0,	1,	0,	0,
-			s,	0,	c,	0,
-			px,	py,	pz,	1
-		];
-		// Apply an axis swapping transformation.
-		const axisSwap = [
-			1,0,0,0,
-			0,0,1,0,
-			0,1,0,0,
-			0,0,0,1
-		]
-		gl.uniformMatrix4fv(transformLocation, false, new Float32Array(matmul4(rotateXY, axisSwap)));
+		// Compute and set the observer's camera transformation
+		const negx = new Matrix4([-1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]); // Negate the X coordinate to make the axes right handed.
+		var perspectiveTransform = new Matrix4()
+		.translate(-playerPosition[0],-playerPosition[1],-playerPosition[2])
+		.multiply(negx);
+		gl.uniformMatrix4fv(viewLocation, false, new Float32Array(perspectiveTransform.arr));
 		
-		/*
-		const cubeColours = new Uint8Array([
-			255, 127,  39, 244, // orange
-			255, 242,   0, 255, // yellow
-			163,  73, 164, 255, // purple
-			 63,  72, 204, 255, // dblue
-			181, 230,  29, 255, // lgreen
-			 34, 177,  76, 255, // dgreen
-			  0, 162, 232, 255, // lblue
-			255, 174, 201, 255, // pink
-		])
-		
-		0,0,0, // orange
-		0,1,0, // yellow
-		0,0,1, // purple
-		1,0,1, // dblue
-		0,1,0, // lgreen
-		1,1,0, // dgreen
-		0,1,1, // pink
-		1,1,1, // lblue
-		*/
-		
+		// Compute the model transformations (the cube vertexes and colours are reused).
+		const cube1Model = new Matrix4()
+			.rotate((now - progStart) /4000 % (2 * Math.PI), Math.sqrt(2)/2, Math.sqrt(2)/2, 0)
+			.scale(0.25, 0.25, 0.25)
+			.translate(0.25, 0.25, 0.25);
+			
+		const cube2Model = new Matrix4()
+			.rotate((now - progStart) /4500 % (2 * Math.PI), 0, 1, 0)
+			.scale(0.35, 0.35, 0.35)
+			.translate(-0.35, -0.45, -0.15);
+			
 		// Set up the loading of the (filled) vertex & colour buffers
-		gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-		gl.enableVertexAttribArray(positionLocation);
-		gl.vertexAttribPointer(positionLocation, 4, gl.FLOAT, false, 0, 0); // 4-vectors of floats
-		
 		gl.bindBuffer(gl.ARRAY_BUFFER, unitColoursBuffer);
 		gl.enableVertexAttribArray(colourLocation);
 		gl.vertexAttribPointer(colourLocation, 4, gl.UNSIGNED_BYTE, true, 0, 0); // 4-vectors of 8-bit unsigned integers hich should be normalised to range 0-1
+		gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer);
+		gl.enableVertexAttribArray(cubeLocation);
+		gl.vertexAttribPointer(cubeLocation, 3, gl.FLOAT, false, 0, 0); // 3-vectors of floats
 		
-		// Draw the red square
+		// Draw the first cube
+		gl.uniformMatrix4fv(modelLocation, false, new Float32Array(cube1Model.arr));
+		gl.drawArrays(gl.LINES,	0,	6*2*6);
+		
+		// Draw the second cube
+		gl.uniformMatrix4fv(modelLocation, false, new Float32Array(cube2Model.arr));
 		gl.drawArrays(gl.LINES,	0,	6*2*6);
 		
 	}
@@ -404,6 +408,81 @@ async function gl_init(canvas) {
 
 setInterval(update, 300);
 setInterval(repaint, 100);
+
+
+class Matrix4 {
+	arr;
+	
+	constructor(arr = null) {
+		if (arr === null) {
+			this.arr = [
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			];
+		} else {
+			this.arr = arr;
+		}
+	}
+	
+	translate(x,y,z) {
+		this.arr = matmul4([
+			1,0,0,0,
+			0,1,0,0,
+			0,0,1,0,
+			x,y,z,1], this.arr);
+		return this;
+	}
+	
+	scale(x,y,z) {
+		this.arr = matmul4([
+			x,0,0,0,
+			0,y,0,0,
+			0,0,z,0,
+			0,0,0,1
+		], this.arr);
+		return this;
+	}
+	
+	rotate(theta, ux, uy, uz) {
+		// See https://en.wikipedia.org/wiki/Rotation_matrix#Rotation_matrix_from_axis_and_angle
+		let c = Math.cos(theta);
+		let s = Math.sin(theta);
+		let oneMinusC = 1 - c;
+		
+		let r00 = ux * ux * oneMinusC + c;
+		let r10 = ux * uy * oneMinusC + uz * s;
+		let r20 = ux * uz * oneMinusC - uy * s;
+		
+		let r01 = uy * ux * oneMinusC - uz * s;
+		let r11 = uy * uy * oneMinusC + c;
+		let r21 = uy * uz * oneMinusC + ux * s;
+		
+		let r02 = uz * ux * oneMinusC + uy * s;
+		let r12 = uz * uy * oneMinusC - ux * s;
+		let r22 = uz * uz * oneMinusC + c;
+		
+		this.arr = matmul4([
+			r00, r10, r20, 0,
+			r01, r11, r21, 0,
+			r02, r12, r22, 0,
+			0,   0,   0,   1
+		], this.arr);
+		
+		return this;
+		
+	}
+	
+	multiply(m) {
+		if (m instanceof Matrix4) {
+			this.arr = matmul4(m.arr, this.arr);
+		} else {
+			this.arr = matmul4(m, this.arr);
+		}1
+		return this;
+	}
+}
 
 function matmul4(m, n) {
 	/* Column first matrixes
@@ -471,6 +550,15 @@ function matmul4(m, n) {
 	
 }
 
+
+function printMatrix(m) {
+	console.log([m[4*0+0],m[4*0+1],m[4*0+2],m[4*0+3]]);
+	console.log([m[4*1+0],m[4*1+1],m[4*1+2],m[4*1+3]]);
+	console.log([m[4*2+0],m[4*2+1],m[4*2+2],m[4*2+3]]);
+	console.log([m[4*3+0],m[4*3+1],m[4*3+2],m[4*3+3]]);
+	console.log("");
+}
+
 function debugMatmul() {
 	
 	function debugMatmulElem(i,j) {
@@ -478,13 +566,6 @@ function debugMatmul() {
 		console.log([n[4*j+0], n[4*j+1], n[4*j+2], n[4*j+3]]);
 		console.log(m[4*j+0]*n[4*0+i] + m[4*j+1]*n[4*1+i] + m[4*j+2]*n[4*2+i] + m[4*j+3]*n[4*3+i]);
 	}
-	function printMatrix(m) {
-		console.log([m[4*0+0],m[4*0+1],m[4*0+2],m[4*0+3]]);
-		console.log([m[4*1+0],m[4*1+1],m[4*1+2],m[4*1+3]]);
-		console.log([m[4*2+0],m[4*2+1],m[4*2+2],m[4*2+3]]);
-		console.log([m[4*3+0],m[4*3+1],m[4*3+2],m[4*3+3]]);
-	}
-	
 	const swapxz = [
 		0,0,1,0,
 		0,1,0,0,
