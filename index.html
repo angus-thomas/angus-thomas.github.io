@@ -28,6 +28,7 @@
 						10<sup>th</sup> April 2025 17:35
 					</span>
 				</div>
+				<div class="message">
 					<p class="message-body">
 						Hi Tara, Dinner will be ready at 23:20 Xx
 					</p>
@@ -69,7 +70,9 @@
 				<ol>
 					<li>Created an array of vectors of corners of a unit cube: <code>const corners = new Float32Array([0,0,1,...]);</code>.</li>
 					<li>Passed that array to the GPU at the start of the program: <code>gl.bufferData(gl.ARRAY_BUFFER, corners, gl.STATIC_DRAW);</code>. I also pass a similar array of vertex colours at this point.</li>
-					<li>For each frame, I assemble a transformation matrix representing the position of the cube, and pass that to the GPU with <code>gl.uniformMatrix4fv(modelLocation, false, new Float32Array(cube1Model.arr));</code>.</li>
+					<li>For each frame, I assemble a transformation matrix representing the position of the cube, and pass that to the GPU with <code>gl.uniformMatrix4fv(cubeTransformationLocation, false, cubeTransformationMatrix);</code>.
+						This looks a bit different from the above step: It's a 4x4 matrix, passed as a <em>uniform</em> (a variable that's the same for all vertices in the cube), to the <em>vertex shader</em> of the cube (that computes the cube vertices' positions).
+					</li>
 					<li>Finally, I draw the cube with <code>gl.drawArrays(gl.LINES,	0,	6*2*6);</code>.</li>
 				</ol>
 				<p>
