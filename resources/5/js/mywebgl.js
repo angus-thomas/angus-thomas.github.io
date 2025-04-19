@@ -1,6 +1,6 @@
 "use strict";
 
-const RESOURCES_LIB = "/resources/4"
+const RESOURCES_LIB = "/resources/5"
 
 const KEY_UP = 0
 const KEY_DOWN = 1
