@@ -1,5 +1,15 @@
 "use strict";
 const SPEED = 50 * 0.001;
+const WALK_ANIMATION_FRAMES = [
+	"0 -100px",
+	"-100px -100px",
+	"-200px -100px",
+	"-300px -100px",
+	"-400px -100px",
+	"-300px -100px",
+	"-200px -100px",
+	"-100px -100px",
+]
 
 class Cat {
 	
@@ -15,6 +25,8 @@ class Cat {
 		this.setPosition(br.x, br.y);
 		
 		this.moving = false;
+		this.moveAnimationIndex = 0;
+		
 	}
 	
 	setPosition(x, y) {
@@ -25,14 +37,14 @@ class Cat {
 	}
 	
 	move(x, y) {
-		this.targetX = x;
-		this.targetY = y;
+		this.targetX = x - 25;
+		this.targetY = y - 25;
 		
 		if (!this.moving) {
-			
 			const boundMoveImpl = this.moveImpl.bind(this);
 			this.then = Date.now();
-			this.moveInterval = setInterval(boundMoveImpl, 300);
+			this.moving = true;
+			this.moveInterval = setInterval(boundMoveImpl, 150);
 		}
 	}
 	
@@ -48,9 +60,19 @@ class Cat {
 		
 		// Move the cat towards the target
 		const step = SPEED * dt;
-		
 		const dx = self.targetX - self.x;
 		const dy = self.targetY - self.y;
+		
+		// Turn the cat
+		if (dx > 0) {
+			this.elem.style.transform = "scaleX(-1)";
+		} else {
+			this.elem.style.transform = "";
+		}
+		// Step up the animation index
+		this.moveAnimationIndex = (this.moveAnimationIndex + 1) % WALK_ANIMATION_FRAMES.length;
+		this.elem.style.backgroundPosition = WALK_ANIMATION_FRAMES[this.moveAnimationIndex];
+		
 		if (dx * dx + dy * dy <= step * step) {
 			self.setPosition(self.targetX, self.targetY);
 			
@@ -59,6 +81,7 @@ class Cat {
 			clearInterval(self.moveInterval);
 			
 		} else {
+			// Move the cat an increment
 			const targetDistance = Math.sqrt(dx * dx + dy * dy);
 			self.setPosition(self.x + step / targetDistance * dx, self.y + step / targetDistance * dy);
 		}
