@@ -12,6 +12,12 @@ const WALK_ANIMATION_FRAMES = [
 ]
 const SLEEP_ANIMATION_FRAME = "0 -200px";
 
+const CatState = Object.freeze({
+	ASLEEP: 0,
+	IDLE: 1,
+	WALKING: 2
+});
+
 class Cat {
 	
 	constructor(elem) {
@@ -25,10 +31,8 @@ class Cat {
 		elem.style.position = "absolute";
 		this.setPosition(br.x, br.y);
 		
-		this.moving = false;
 		this.moveAnimationIndex = 0;
 		
-		this.asleep = true;
 		this.sleepTImerSet = false;
 		this.goToSleep();
 	}
@@ -42,14 +46,14 @@ class Cat {
 	
 	goToSleep() {
 		this.preventSleep();
-		this.asleep = true;
+		this.state = CatState.ASLEEP;
 		this.elem.style.backgroundPosition = SLEEP_ANIMATION_FRAME;
 	}
 	
 	awake() {
-		this.asleep = false;
+		this.state = CatState.IDLE;
 		this.elem.style.backgroundPosition = WALK_ANIMATION_FRAMES[this.moveAnimationIndex];
-		this.queueSleep()
+		this.queueSleep();
 	}
 	
 	preventSleep() {
@@ -65,9 +69,9 @@ class Cat {
 	}
 	
 	clickCat() {
-		if (this.asleep) {
+		if (this.state === CatState.ASLEEP) {
 			this.awake();
-		} else if (!this.moving) { // I should probably create a cat finite state machine
+		} else if (this.state === CatState.IDLE) { // I should probably create a cat finite state machine
 			// Reset the sleep counter
 			this.queueSleep();
 		}
@@ -76,38 +80,34 @@ class Cat {
 	clickPage(x, y) {
 		
 		// Ignore clicks while asleep
-		if (this.asleep) {
+		if (this.state === CatState.ASLEEP) {
 			return;
 		}
 		
 		// Move the cat
 		this.targetX = x - 25;
 		this.targetY = y - 25;
-		
-		if (!this.moving) {
+		if (!(this.state === CatState.WALKING)) {
+			
 			// Set the cat moving if it's not already
 			this.preventSleep();
-			const boundMoveImpl = this.moveImpl.bind(this);
 			this.then = Date.now();
-			this.moving = true;
-			this.moveInterval = setInterval(boundMoveImpl, 150);
+			this.state = CatState.WALKING
+			this.moveInterval = setInterval(this.moveImpl.bind(this), 150);
+			
 		}
 	}
 	
-	/**
-	 * @param {Cat} self
-	 */
 	moveImpl() {
-		const self = this;
 		// Determine the time step
 		var now = Date.now();
-		const dt = now - self.then;
-		self.then = now;
+		const dt = now - this.then;
+		this.then = now;
 		
 		// Move the cat towards the target
 		const step = SPEED * dt;
-		const dx = self.targetX - self.x;
-		const dy = self.targetY - self.y;
+		const dx = this.targetX - this.x;
+		const dy = this.targetY - this.y;
 		
 		// Turn the cat
 		if (dx > 0) {
@@ -121,11 +121,11 @@ class Cat {
 		this.elem.style.backgroundPosition = WALK_ANIMATION_FRAMES[this.moveAnimationIndex];
 		
 		if (dx * dx + dy * dy <= step * step) {
-			self.setPosition(self.targetX, self.targetY);
+			this.setPosition(this.targetX, this.targetY);
 			
 			// Stop calling the move function
-			self.moving = false;
-			clearInterval(self.moveInterval);
+			this.state = CatState.IDLE;
+			clearInterval(this.moveInterval);
 			
 			// Send the cat to sleep soon
 			this.queueSleep();
@@ -133,7 +133,7 @@ class Cat {
 		} else {
 			// Move the cat an increment
 			const targetDistance = Math.sqrt(dx * dx + dy * dy);
-			self.setPosition(self.x + step / targetDistance * dx, self.y + step / targetDistance * dy);
+			this.setPosition(this.x + step / targetDistance * dx, this.y + step / targetDistance * dy);
 		}
 	}
 }
