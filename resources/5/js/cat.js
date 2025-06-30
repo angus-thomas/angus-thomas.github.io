@@ -1,35 +1,50 @@
 "use strict";
 const SPEED = 50 * 0.001;
-const WALK_ANIMATION_FRAMES = [
-	"0 -100px",
-	"-100px -100px",
-	"-200px -100px",
-	"-300px -100px",
-	"-400px -100px",
-	"-300px -100px",
-	"-200px -100px",
-	"-100px -100px",
-]
-const SLEEP_ANIMATION_FRAME = "0 -200px";
 
 const CatState = Object.freeze({
 	ASLEEP: 0,
 	IDLE: 1,
-	WALKING: 2
+	WALKING: 2,
+	PAT: 2
 });
+
+const sprite1 = {
+	source: "/resources/5/img/cat_spritesheet_1.png",
+	walkFrames: [
+		"-300px 0",
+		"-100px 0",
+		"-100px -100px",
+		"0 0",
+		"-200px 0",
+		"-200px -100px",
+	],
+	sleepFrame: "0 -100px",
+	patFrame: "-300px -100px",
+	width: "400px"
+}
+
 
 class Cat {
 	
-	constructor(elem) {
+	constructor(elem, sprite) {
 		/**
 		 * @type {HTMLElement}
 		 */
 		this.elem = elem;
+		this.sprite = sprite;
 		
 		// Set the element to absolute position
-		const br = this.elem.getBoundingClientRect();
-		elem.style.position = "absolute";
+		// Initialise the cat style
+		this.elem.style.width = "100px";
+		this.elem.style.height = "100px";
+		this.elem.style.backgroundImage = "url('" + this.sprite.source + "')";
+		this.elem.style.backgroundPosition = "-100px -100px";
+		this.elem.style.backgroundSize = this.sprite.width;
+		this.elem.style.scale = "50%";
+		this.elem.style.position = "absolute";
+		const br = elem.getBoundingClientRect();
 		this.setPosition(br.x, br.y);
+		
 		
 		this.moveAnimationIndex = 0;
 		
@@ -47,12 +62,12 @@ class Cat {
 	goToSleep() {
 		this.preventSleep();
 		this.state = CatState.ASLEEP;
-		this.elem.style.backgroundPosition = SLEEP_ANIMATION_FRAME;
+		this.elem.style.backgroundPosition = this.sprite.sleepFrame;
 	}
 	
 	awake() {
 		this.state = CatState.IDLE;
-		this.elem.style.backgroundPosition = WALK_ANIMATION_FRAMES[this.moveAnimationIndex];
+		this.elem.style.backgroundPosition =  this.sprite.walkFrames[this.moveAnimationIndex];
 		this.queueSleep();
 	}
 	
@@ -68,6 +83,27 @@ class Cat {
 		this.sleepInterval = setInterval(this.goToSleep.bind(this), 5000);
 	}
 	
+	mousedown() {
+		if (this.state === CatState.IDLE) {
+			this.state = CatState.PAT;
+			this.elem.style.backgroundPosition =  this.sprite.patFame;
+		}
+	}
+	
+	mouseup() {
+		if (this.state === CatState.PAT) {
+			this.state = CatState.IDLE;
+			this.elem.style.backgroundPosition =  this.sprite.walkFrames[0];
+		}
+	}
+	
+	mousedown() {
+		if (this.state === CatState.IDLE) {
+			this.state = CatState.PAT;
+			this.elem.style.backgroundPosition = this.sprite.patFrame;
+		}
+	}
+	
 	clickCat() {
 		if (this.state === CatState.ASLEEP) {
 			this.awake();
@@ -80,14 +116,20 @@ class Cat {
 	clickPage(x, y) {
 		
 		// Ignore clicks while asleep
-		if (this.state === CatState.ASLEEP) {
+		if (!((this.state === CatState.IDLE) || (this.state === CatState.WALKING))) {
 			return;
 		}
 		
 		// Move the cat
 		this.targetX = x - 25;
 		this.targetY = y - 25;
-		if (!(this.state === CatState.WALKING)) {
+		
+		// Turn the cat
+		if ((!(this.state === CatState.WALKING))
+			&& ((this.targetX - this.x) * (this.targetX - this.x) + (this.targetY - this.y) * (this.targetY - this.y) > 60 * 60)
+		) {
+			
+			// True iff not walking and the distance is further than 100
 			
 			// Set the cat moving if it's not already
 			this.preventSleep();
@@ -117,9 +159,8 @@ class Cat {
 		}
 		
 		// Step up the animation index
-		this.moveAnimationIndex = (this.moveAnimationIndex + 1) % WALK_ANIMATION_FRAMES.length;
-		this.elem.style.backgroundPosition = WALK_ANIMATION_FRAMES[this.moveAnimationIndex];
-		
+		this.moveAnimationIndex = (this.moveAnimationIndex + 1) %  this.sprite.walkFrames.length;
+		this.elem.style.backgroundPosition =  this.sprite.walkFrames[this.moveAnimationIndex];
 		if (dx * dx + dy * dy <= step * step) {
 			this.setPosition(this.targetX, this.targetY);
 			
@@ -139,7 +180,7 @@ class Cat {
 }
 
 
-const cat = new Cat(document.getElementById("cat"));
+const cat = new Cat(document.getElementById("cat"), sprite1);
 document.body.addEventListener('click', (event) => {
 	const x = event.pageX;
 	const y = event.pageY;
@@ -147,4 +188,13 @@ document.body.addEventListener('click', (event) => {
 });
 cat.elem.addEventListener('click', (event) => {
 	cat.clickCat();
+});
+cat.elem.addEventListener('mousedown', (event) => {
+	cat.mousedown();
+});
+cat.elem.addEventListener('mouseup', (event) => {
+	cat.mouseup();
+});
+cat.elem.addEventListener('mouseout', (event) => {
+	cat.mouseup();
 });
