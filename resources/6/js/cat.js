@@ -9,7 +9,7 @@ const CatState = Object.freeze({
 });
 
 const sprite1 = {
-	source: "/resources/5/img/cat_spritesheet_1.png",
+	source: "/resources/6/img/cat_spritesheet_1.png",
 	walkFrames: [
 		"-300px 0",
 		"-100px 0",
