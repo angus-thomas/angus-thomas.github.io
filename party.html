@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angus's Party</title>
+  <link rel="stylesheet" href="/resources/5/css/styles.css">
+  <link rel="stylesheet" href="/resources/5/css/party.css">
+</head>
+
+<body style="background-image: none; background: linear-gradient(135deg, #89f7fe, #66a6ff);">
+  <canvas id="confettiCanvas" style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;"></canvas>
+
+<script>
+const canvas = document.getElementById("confettiCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const NUM_ELEMENTS = 30;
+const elements = [];
+const images = [];
+const PARTY_SPEED = 0.5;
+const ANG_SPEED = 1.5;
+const srcs = [
+  '/resources/5/img/balloon.png',
+  '/resources/5/img/flower.png'
+];
+
+let loaded = 0;
+srcs.forEach(src => {
+  const img = new Image();
+  img.onload = () => {
+    loaded++;
+    if (loaded === srcs.length) init();
+  };
+  img.src = src;
+  images.push(img);
+});
+
+function init() {
+  for (let i = 0; i < NUM_ELEMENTS; i++) {
+    elements.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * -canvas.height,
+      speed: PARTY_SPEED * (0.1 + Math.random() * 0.2),
+      size: 30 + Math.random() * 20,
+      img: images[Math.floor(Math.random() * images.length)],
+      angle: Math.random() * 360,
+      rotation: (Math.random() - 0.5) * 0.2
+    });
+    requestAnimationFrame(update);
+  }
+}
+
+function update() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const el of elements) {
+    el.y += el.speed;
+    el.angle += el.rotation;
+    if (el.y > canvas.height) {
+      el.y = -el.size;
+      el.x = Math.random() * canvas.width;
+    }
+    ctx.save();
+    ctx.translate(el.x, el.y);
+    ctx.rotate((el.angle * Math.PI) / 180);
+    ctx.drawImage(el.img, -el.size / 2, -el.size / 2, el.size, el.size);
+    ctx.restore();
+  }
+  requestAnimationFrame(update);
+}
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+<h1>
+  Welcome to my party page.</h1>
+    <p>Beneath garlands and garden arches, the spirit of spring comes alive</p>
+    <p>Good vibes guaranteed.</p>
+    <div id="cat"></div>
+      <div style="height: 100px"></div>
+      <script src="/resources/5/js/cat.js"></script>
+</body>
+
+</html>

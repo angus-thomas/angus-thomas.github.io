@@ -192,7 +192,13 @@ cat.elem.addEventListener('click', (event) => {
 cat.elem.addEventListener('mousedown', (event) => {
 	cat.mousedown();
 });
+cat.elem.addEventListener('touchstart', (event) => {
+	cat.mousedown();
+});
 cat.elem.addEventListener('mouseup', (event) => {
+	cat.mouseup();
+});
+cat.elem.addEventListener('touchend', (event) => {
 	cat.mouseup();
 });
 cat.elem.addEventListener('mouseout', (event) => {

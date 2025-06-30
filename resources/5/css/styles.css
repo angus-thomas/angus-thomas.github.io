@@ -11,7 +11,7 @@ body {
     background-repeat: no-repeat;
 }
 
-canvas {
+canvas#glCanvas {
     display: block;
     margin: 20px auto;
     background: black;
