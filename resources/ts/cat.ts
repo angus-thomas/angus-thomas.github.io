@@ -193,12 +193,14 @@ class Cat {
 			&& ((this.targetX - this.x) * (this.targetX - this.x) + (this.targetY - this.y) * (this.targetY - this.y) > 60 * 60)
 		) {
 			
-			// True iff not walking and the distance is further than 100
+			// True iff not walking and the distance is further than 160
 			
 			// Set the cat moving if it's not already
 			this.preventSleep();
 			this.then = Date.now();
 			this.state = CatState.WALKING
+			
+			clearInterval(this.moveInterval);
 			this.moveInterval = setInterval(this.moveImpl.bind(this), 150);
 			
 		}
