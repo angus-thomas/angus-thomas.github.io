@@ -92,12 +92,3 @@ h1 {
     margin-top: 4px;
     text-align: right;
 }
-
-#cat {
-    background-image: url('/resources/6/img/cat_spritesheet.png');
-    width: 100px;
-    height: 100px;
-    transition: top 0.3s linear, left 0.3s linear;
-    background-position: -100px -100px;
-    scale: 50%;
-}

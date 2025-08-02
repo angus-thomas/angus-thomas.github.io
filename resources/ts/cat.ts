@@ -65,16 +65,6 @@ function loadSpriteSheet(
 	};
 }
 
-const sprite1 = loadSpriteSheet(
-	"/resources/6/img/cat_spritesheet_1.png",
-	400, 200, // Spritesheet dimensions
-	100, 100, // Sprite dimensions
-	100, // Target height
-	[3, 1, 5, 0, 2, 6], // Walk frames
-	4, // Sleep frame
-	7 // Pat frame
-);
-
 class Cat {
 	
 	elem: HTMLElement;
@@ -96,14 +86,27 @@ class Cat {
 		this.elem = elem;
 		this.sprite = sprite;
 		
+		// Add event listeners
+		elem.addEventListener('click', () => this.clickCat());
+		elem.addEventListener('mousedown', () => this.mousedown());
+		elem.addEventListener('touchstart', () => this.mousedown());
+		elem.addEventListener('mouseup', () => this.mouseup());
+		elem.addEventListener('touchend', () => this.mouseup());
+		elem.addEventListener('mouseout', () => this.mouseup());
+		
+		document.body.addEventListener('click', (event) => {
+			this.clickPage(event.pageX, event.pageY);
+		});
+		
 		// Set the element to absolute position
 		// Initialise the cat style
-		this.elem.style.width = this.sprite.elementWidth;
-		this.elem.style.height = this.sprite.elementHeight;
-		this.elem.style.backgroundImage = "url('" + this.sprite.source + "')";
-		this.elem.style.backgroundPosition = this.sprite.backgroundPositions_walk[0];
-		this.elem.style.backgroundSize = this.sprite.backgroundSize;
-		this.elem.style.position = "absolute";
+		elem.style.width = sprite.elementWidth;
+		elem.style.height = sprite.elementHeight;
+		elem.style.backgroundImage = "url('" + sprite.source + "')";
+		elem.style.backgroundPosition = sprite.backgroundPositions_walk[0];
+		elem.style.backgroundSize = sprite.backgroundSize;
+		elem.style.position = "absolute";
+		elem.style.transition = "top 0.3s linear, left 0.3s linear";
 		
 		const br = elem.getBoundingClientRect();
 		this.x = br.x;
@@ -240,34 +243,40 @@ class Cat {
 		}
 	}
 }
-const catElement = document.getElementById("cat");
 
-if (catElement) {
-	
-	const cat = new Cat(catElement, sprite1);
-	
-	document.body.addEventListener('click', (event) => {
-		const x = event.pageX;
-		const y = event.pageY;
-		cat.clickPage(x, y);
-	});
-	cat.elem.addEventListener('click', () => {
-		cat.clickCat();
-	});
-	cat.elem.addEventListener('mousedown', () => {
-		cat.mousedown();
-	});
-	cat.elem.addEventListener('touchstart', () => {
-		cat.mousedown();
-	});
-	cat.elem.addEventListener('mouseup', () => {
-		cat.mouseup();
-	});
-	cat.elem.addEventListener('touchend', () => {
-		cat.mouseup();
-	});
-	cat.elem.addEventListener('mouseout', () => {
-		cat.mouseup();
-	});
-	
+class AngusCatElement extends HTMLElement {
+	connectedCallback() {
+		const src = this.getAttribute('src')!;
+		const srcDimensions = this.getAttribute('srcDimensions')!;
+		const height = parseInt(this.getAttribute('height')!);
+		const walkFrames = this.getAttribute('walkFrames')!
+			.split(',')
+			.map(Number);
+		const sleepFrame = parseInt(this.getAttribute('sleepFrame')!);
+		const patFrame = parseInt(this.getAttribute('patFrame')!);
+		
+		const [sheetSize, spriteSize] = srcDimensions.split(';');
+		const [sheetW, sheetH] = sheetSize.split('x').map(Number);
+		const [spriteW, spriteH] = spriteSize.split('x').map(Number);
+		
+		const elem = document.createElement('div');
+		this.appendChild(elem);
+		
+		const spriteData = loadSpriteSheet(
+			src,
+			sheetW,
+			sheetH,
+			spriteW,
+			spriteH,
+			height,
+			walkFrames,
+			sleepFrame,
+			patFrame
+		);
+		
+		const cat = new Cat(elem, spriteData);
+		
+	}
 }
+
+customElements.define('angus-cat', AngusCatElement);
