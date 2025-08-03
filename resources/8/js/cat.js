@@ -200,6 +200,7 @@ style.textContent = `
 	-moz-user-select: none;
 	-ms-user-select: none;
 	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
 	position: absolute;
 	transition: top 0.3s linear, left 0.3s linear;
 }
