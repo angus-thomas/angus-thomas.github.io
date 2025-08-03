@@ -88,12 +88,12 @@ class Cat {
 		this.sprite = sprite;
 		
 		// Add event listeners
-		elem.addEventListener('click', (e) => {e.preventDefault(); this.clickCat(); });
-		elem.addEventListener('mousedown', (e) => { e.preventDefault(); this.mousedown(); });
-		elem.addEventListener('touchstart', (e) => { e.preventDefault(); this.mousedown(); });
-		elem.addEventListener('mouseup', (e) => { e.preventDefault(); this.mouseup(); });
-		elem.addEventListener('touchend', (e) => { e.preventDefault(); this.mouseup(); });
-		elem.addEventListener('mouseout', (e) => { e.preventDefault(); this.mouseup(); });
+		elem.addEventListener('click', (e) => { this.clickCat(); e.preventDefault(); });
+		elem.addEventListener('mousedown', (e) => {  this.mousedown(); e.preventDefault(); });
+		elem.addEventListener('touchstart', (e) => {  this.mousedown(); e.preventDefault(); });
+		elem.addEventListener('mouseup', (e) => {  this.mouseup(); e.preventDefault(); });
+		elem.addEventListener('touchend', (e) => {  this.mouseup(); e.preventDefault(); });
+		elem.addEventListener('mouseout', (e) => {  this.mouseup(); e.preventDefault(); });
 		
 		document.body.addEventListener('click', (event) => {
 			this.clickPage(event.pageX, event.pageY);
