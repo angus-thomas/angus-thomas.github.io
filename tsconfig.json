@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES6",
     "strict": true,
-    "outDir": "./resources/7/js",
+    "outDir": "./resources/8/js",
     "rootDir": "./resources/ts",
     "module": "ES6",
     "moduleResolution": "node",

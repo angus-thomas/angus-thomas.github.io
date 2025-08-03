@@ -42,7 +42,7 @@ function createFramebuffer(texture) {
 }
 function createProgramFromSources(gl, vertSource, fragSource) {
     return __awaiter(this, void 0, void 0, function* () {
-        const RESOURCES_LIB = "/resources/7";
+        const RESOURCES_LIB = "/resources/8";
         let vertexShaderResponse = yield fetch(RESOURCES_LIB + "/js/particles/" + vertSource);
         let vertexShaderSource = yield vertexShaderResponse.text();
         let vertexShader = gl.createShader(gl.VERTEX_SHADER);

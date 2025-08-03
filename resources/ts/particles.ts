@@ -37,7 +37,7 @@ function createFramebuffer(texture: WebGLTexture): WebGLFramebuffer {
 
 async function createProgramFromSources(gl: WebGLRenderingContext, vertSource: string, fragSource: string) {
 	
-	const RESOURCES_LIB = "/resources/7"
+	const RESOURCES_LIB = "/resources/8"
 	
 	let vertexShaderResponse = await fetch(RESOURCES_LIB + "/js/particles/" + vertSource);
 	let vertexShaderSource = await vertexShaderResponse.text();
