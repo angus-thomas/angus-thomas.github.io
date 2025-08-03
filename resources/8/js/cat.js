@@ -44,7 +44,7 @@ class Cat {
         this.elem = elem;
         this.sprite = sprite;
         // Add event listeners
-        elem.addEventListener('click', () => this.clickCat());
+        elem.addEventListener('click', (event) => { this.clickCat(); event.preventDefault(); });
         elem.addEventListener('mousedown', () => this.mousedown());
         elem.addEventListener('touchstart', () => this.mousedown());
         elem.addEventListener('mouseup', () => this.mouseup());
