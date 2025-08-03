@@ -65,11 +65,12 @@ function loadSpriteSheet(
 	};
 }
 
+
 class Cat {
 	
 	elem: HTMLElement;
-	
 	sprite: SpriteData;
+	
 	moveAnimationIndex: number;
 	sleepTImerSet: boolean;
 	x: number;
