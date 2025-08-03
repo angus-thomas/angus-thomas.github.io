@@ -106,8 +106,8 @@ class Cat {
 		elem.style.backgroundImage = "url('" + sprite.source + "')";
 		elem.style.backgroundPosition = sprite.backgroundPositions_walk[0];
 		elem.style.backgroundSize = sprite.backgroundSize;
-		elem.style.position = "absolute";
-		elem.style.transition = "top 0.3s linear, left 0.3s linear";
+		elem.classList.add("angus-cat")
+
 		
 		const br = elem.getBoundingClientRect();
 		this.x = br.x;
@@ -283,3 +283,16 @@ class AngusCatElement extends HTMLElement {
 }
 
 customElements.define('angus-cat', AngusCatElement);
+const style = document.createElement('style');
+style.textContent = `
+.angus-cat {
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-touch-callout: none;
+	position: absolute;
+	transition: top 0.3s linear, left 0.3s linear;
+}
+`;
+document.head.appendChild(style);
