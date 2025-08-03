@@ -89,8 +89,8 @@ class Cat {
 		
 		// Add event listeners
 		elem.addEventListener('click', (e) => { this.clickCat(); e.preventDefault(); });
-		elem.addEventListener('touchstart', (e) => { this.mousedown(); e.preventDefault(); });
-		elem.addEventListener('mousedown', (e) => { this.mousedown(); e.preventDefault(); });
+		elem.addEventListener('touchstart', (e) => { this.mousedown(); });
+		elem.addEventListener('mousedown', (e) => { this.mousedown(); });
 		elem.addEventListener('mouseup', () => { this.mouseup(); });
 		elem.addEventListener('touchend', () => { this.mouseup(); });
 		elem.addEventListener('mouseout', () => { this.mouseup(); });
