@@ -41,35 +41,55 @@ class Cat {
         this.state = CatState.ASLEEP;
         this.moveInterval = -1;
         this.then = -1;
+        this.initialised = false;
         this.elem = elem;
         this.sprite = sprite;
         // Add event listeners
         elem.addEventListener('click', (e) => { this.clickCat(); e.preventDefault(); });
-        elem.addEventListener('touchstart', (e) => { this.mousedown(); });
-        elem.addEventListener('mousedown', (e) => { this.mousedown(); });
+        elem.addEventListener('touchstart', (e) => { this.initCat(); this.mousedown(); });
+        elem.addEventListener('mousedown', (e) => { this.initCat(); this.mousedown(); });
         elem.addEventListener('mouseup', () => { this.mouseup(); });
         elem.addEventListener('touchend', () => { this.mouseup(); });
         elem.addEventListener('mouseout', () => { this.mouseup(); });
         document.body.addEventListener('click', (event) => {
             this.clickPage(event.pageX, event.pageY);
         });
-        // Set the element to absolute position
         // Initialise the cat style
         elem.style.width = sprite.elementWidth;
         elem.style.height = sprite.elementHeight;
+        if (elem.parentElement) {
+            elem.parentElement.style.width = sprite.elementWidth;
+            elem.parentElement.style.height = sprite.elementHeight;
+        }
         elem.style.backgroundImage = "url('" + sprite.source + "')";
         elem.style.backgroundPosition = sprite.backgroundPositions_walk[0];
         elem.style.backgroundSize = sprite.backgroundSize;
         elem.classList.add("angus-cat");
+        this.initialised = false;
+        this.x = -1;
+        this.y = -1;
+        this.targetX = -1;
+        this.targetY = -1;
+        this.moveAnimationIndex = -1;
+        this.sleepTimerSet = false;
+        this.goToSleep();
+    }
+    initCat() {
+        // The document should be allowed to load, and positions stopped
+        //  moving, before this method runs.
+        if (this.initialised) {
+            return;
+        }
+        this.initialised = true;
+        let elem = this.elem;
         const br = elem.getBoundingClientRect();
-        this.x = br.x;
-        this.y = br.y;
+        this.x = elem.offsetLeft + 25;
+        this.y = elem.offsetTop + 25;
         this.targetX = this.x;
         this.targetY = this.y;
-        this.setPosition(br.x, br.y);
+        this.setPosition(this.x, this.y);
         this.moveAnimationIndex = 0;
-        this.sleepTImerSet = false;
-        this.goToSleep();
+        this.sleepTimerSet = false;
     }
     setPosition(x, y) {
         this.x = x;
@@ -88,13 +108,13 @@ class Cat {
         this.queueSleep();
     }
     preventSleep() {
-        if (this.sleepTImerSet) {
+        if (this.sleepTimerSet) {
             clearInterval(this.sleepInterval);
         }
     }
     queueSleep() {
         this.preventSleep();
-        this.sleepTImerSet = true;
+        this.sleepTimerSet = true;
         this.sleepInterval = setInterval(this.goToSleep.bind(this), 5000);
     }
     mouseup() {
