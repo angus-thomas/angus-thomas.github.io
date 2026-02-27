@@ -124,8 +124,8 @@ class Cat {
             return;
         }
         // Move the cat
-        this.targetX = x - 25;
-        this.targetY = y - 25;
+        this.targetX = x - 25 + (Math.random() * 50 - 25);
+        this.targetY = y - 25 + (Math.random() * 50 - 25);
         // Turn the cat
         if ((!(this.state === CatState.WALKING))
             && ((this.targetX - this.x) * (this.targetX - this.x) + (this.targetY - this.y) * (this.targetY - this.y) > 60 * 60)) {
