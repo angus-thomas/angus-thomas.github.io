@@ -58,7 +58,7 @@ section:nth-child(9 ) {background-color: hsl(calc(360*var(--rand-9 )), 80%, 90%)
 section:nth-child(10) {background-color: hsl(calc(360*var(--rand-10)), 80%, 90%);}
 
 
-body:has(.wall) {
+section:has(.wall) {
     position: relative;
     padding-bottom: 100px;
 }
