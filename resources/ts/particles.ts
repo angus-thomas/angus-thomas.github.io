@@ -37,7 +37,7 @@ function createFramebuffer(texture: WebGLTexture): WebGLFramebuffer {
 
 async function createProgramFromSources(gl: WebGLRenderingContext, vertSource: string, fragSource: string) {
 	
-	const RESOURCES_LIB = "/resources/8"
+	const RESOURCES_LIB = "/resources/9"
 	
 	let vertexShaderResponse = await fetch(RESOURCES_LIB + "/js/particles/" + vertSource);
 	let vertexShaderSource = await vertexShaderResponse.text();
@@ -116,7 +116,7 @@ async function main() {
 	
 	// ===== Load PNG texture =====
 	const image = new Image();
-	image.src = "/resources/8/img/fish_lg.png";
+	image.src = "/resources/9/img/fish_lg.png";
 	const fishTexture = gl.createTexture();
 	await new Promise(resolve => {
 		image.onload = () => {

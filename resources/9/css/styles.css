@@ -1,0 +1,119 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: black;
+    min-height: 100vh;
+    
+}
+
+canvas#glCanvas {
+    display: block;
+    margin: 20px auto;
+    background: black;
+}
+
+body:has(.container) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    margin-top: 10px;
+    border-radius: 15px;
+    display: grid;
+    justify-items: center;
+}
+
+section {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    padding: 10px;
+    
+    min-height: 600px;
+    width: 100%
+}
+
+section#messages {
+    background-image: url('/resources/9/img/sunset.png');
+}
+
+section#barn {
+    background-image: url('/resources/9/img/homestead.png');
+}
+
+section#particles  {
+    background-image: url('/resources/9/img/fishtank.jpg');
+    overflow-x: hidden;
+}
+
+section:nth-child(1 ) {background-color: hsl(calc(360*var(--rand-1 )), 80%, 90%);}
+section:nth-child(2 ) {background-color: hsl(calc(360*var(--rand-2 )), 80%, 90%);}
+section:nth-child(3 ) {background-color: hsl(calc(360*var(--rand-3 )), 80%, 90%);}
+section:nth-child(4 ) {background-color: hsl(calc(360*var(--rand-4 )), 80%, 90%);}
+section:nth-child(5 ) {background-color: hsl(calc(360*var(--rand-5 )), 80%, 90%);}
+section:nth-child(6 ) {background-color: hsl(calc(360*var(--rand-6 )), 80%, 90%);}
+section:nth-child(7 ) {background-color: hsl(calc(360*var(--rand-7 )), 80%, 90%);}
+section:nth-child(8 ) {background-color: hsl(calc(360*var(--rand-8 )), 80%, 90%);}
+section:nth-child(9 ) {background-color: hsl(calc(360*var(--rand-9 )), 80%, 90%);}
+section:nth-child(10) {background-color: hsl(calc(360*var(--rand-10)), 80%, 90%);}
+
+
+section:has(.wall) {
+    position: relative;
+    padding-bottom: 100px;
+}
+
+h1 {
+    background-image: url('/resources/9/img/cloud.png');
+    background-size: cover;
+    padding: 70px;
+    background-size: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 60px 90px;
+    background-size: 440px;
+}
+
+.wall {
+    background-image: url('/resources/9/img/bricks.png');
+    background-size: 40px;
+    position: absolute;
+    bottom: 0;
+    color: white;
+    align-content: end;
+}
+
+.messages {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+}
+
+.messages .message {
+    background: linear-gradient(135deg, #f1d328, #eb6c6c);
+    padding: 10px 12px;
+    border-radius: 8px;
+    position: relative;
+    max-width: 100%;
+}
+
+.message-body {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.timestamp {
+    display: block;
+    font-size: 12px;
+    color: #555;
+    margin-top: 4px;
+    text-align: right;
+}
