@@ -14,7 +14,7 @@ void main() {
     vel.x = - vel.x;
   else if (pos.x > 0.9 && vel.x > 0.0)
     vel.x = - vel.x;
-  else if (vel.x > -0.2 && vel.x < 0.2)
+  else if (vel.x > -0.1 && vel.x < 0.1)
     vel.x = vel.x * 2.0;
 
   gl_FragColor = vec4(vel, 0.0);

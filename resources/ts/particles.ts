@@ -116,7 +116,7 @@ async function main() {
 	
 	// ===== Load PNG texture =====
 	const image = new Image();
-	image.src = "/resources/8/img/fish.png";
+	image.src = "/resources/8/img/fish_lg.png";
 	const fishTexture = gl.createTexture();
 	await new Promise(resolve => {
 		image.onload = () => {

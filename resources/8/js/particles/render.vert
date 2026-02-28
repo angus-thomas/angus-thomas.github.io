@@ -19,6 +19,6 @@ void main() {
   v_flip = sign(vel.x);
   
   gl_Position = vec4(pos, 1.0);
-  gl_PointSize = 32.0;
+  gl_PointSize = 64.0;
   
 }

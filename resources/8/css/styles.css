@@ -46,6 +46,10 @@ section#barn {
     background-image: url('/resources/8/img/homestead.png');
 }
 
+section#particles  {
+    background-image: url('/resources/8/img/fishtank.jpg');
+}
+
 section:nth-child(1 ) {background-color: hsl(calc(360*var(--rand-1 )), 80%, 90%);}
 section:nth-child(2 ) {background-color: hsl(calc(360*var(--rand-2 )), 80%, 90%);}
 section:nth-child(3 ) {background-color: hsl(calc(360*var(--rand-3 )), 80%, 90%);}
