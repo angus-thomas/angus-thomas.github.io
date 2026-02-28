@@ -105,13 +105,41 @@ async function main() {
 	const indexBuffer = gl.createBuffer()!;
 	gl.bindBuffer(gl.ARRAY_BUFFER, indexBuffer);
 	gl.bufferData(gl.ARRAY_BUFFER, indices, gl.STATIC_DRAW);
-
+	
+	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+	
 	// ===== Shader programs =====
 	// (Assume `createProgramFromSources(gl, vsSrc, fsSrc)` exists)
 	const velocityUpdateProgram = await createProgramFromSources(gl, "passThrough.vert", "updateVelocity.frag");
 	const positionUpdateProgram = await createProgramFromSources(gl, "passThrough.vert", "updatePosition.frag");
 	const renderProgram = await createProgramFromSources(gl, "render.vert", "render.frag");
+	
+	// ===== Load PNG texture =====
+	const image = new Image();
+	image.src = "/resources/8/img/fish.png";
+	const fishTexture = gl.createTexture();
+	await new Promise(resolve => {
+		image.onload = () => {
 
+			gl.bindTexture(gl.TEXTURE_2D, fishTexture);
+
+			gl.texImage2D(
+				gl.TEXTURE_2D,
+				0,
+				gl.RGBA,
+				gl.RGBA,
+				gl.UNSIGNED_BYTE,
+				image
+			);
+
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+			resolve(null);
+		};
+	});
+	
 	// ===== Render loop =====
 	let time = 0;
 	function update() {
@@ -153,23 +181,35 @@ async function main() {
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
 
 		// --- Render Particles ---
+		gl.enable(gl.BLEND);
 		gl.useProgram(renderProgram);
 		gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 		gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 		gl.clear(gl.COLOR_BUFFER_BIT);
 
+		// Bind fish PNG texture
+		gl.activeTexture(gl.TEXTURE2);
+		gl.bindTexture(gl.TEXTURE_2D, fishTexture);
+		gl.uniform1i(gl.getUniformLocation(renderProgram, "u_fishTexture"), 2);
+
+		gl.activeTexture(gl.TEXTURE1);
+		gl.bindTexture(gl.TEXTURE_2D, velTexB);
+		gl.uniform1i(gl.getUniformLocation(renderProgram, "u_velocityTex"), 1);
+		
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, posTexB);
 		gl.uniform1i(gl.getUniformLocation(renderProgram, "u_positionTex"), 0);
 		gl.uniform1f(gl.getUniformLocation(renderProgram, "u_texSize"), texSize);
-
+		
 		gl.bindBuffer(gl.ARRAY_BUFFER, indexBuffer);
 		const aIndexLoc = gl.getAttribLocation(renderProgram, "a_index");
 		gl.enableVertexAttribArray(aIndexLoc);
 		gl.vertexAttribPointer(aIndexLoc, 1, gl.FLOAT, false, 0, 0);
 
 		gl.drawArrays(gl.POINTS, 0, numParticles);
-
+		gl.disable(gl.BLEND);
+		
+		
 		// --- Ping-pong ---
 		[posTexA, posTexB] = [posTexB, posTexA];
 		[velTexA, velTexB] = [velTexB, velTexA];

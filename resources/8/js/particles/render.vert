@@ -1,7 +1,10 @@
 precision highp float;
 
 uniform sampler2D u_positionTex;
+uniform sampler2D u_velocityTex;
 uniform float u_texSize;
+
+varying float v_flip;
 
 attribute float a_index;
 
@@ -11,7 +14,11 @@ void main() {
   vec2 uv = (vec2(x, y) + 0.5) / u_texSize;
 
   vec3 pos = texture2D(u_positionTex, uv).xyz;
-
+  
+  vec3 vel = texture2D(u_velocityTex, uv).xyz;
+  v_flip = sign(vel.x);
+  
   gl_Position = vec4(pos, 1.0);
-  gl_PointSize = 5.0;
+  gl_PointSize = 32.0;
+  
 }
