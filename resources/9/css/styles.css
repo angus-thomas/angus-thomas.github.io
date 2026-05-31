@@ -61,6 +61,7 @@ section:nth-child(7 ) {background-color: hsl(calc(360*var(--rand-7 )), 80%, 90%)
 section:nth-child(8 ) {background-color: hsl(calc(360*var(--rand-8 )), 80%, 90%);}
 section:nth-child(9 ) {background-color: hsl(calc(360*var(--rand-9 )), 80%, 90%);}
 section:nth-child(10) {background-color: hsl(calc(360*var(--rand-10)), 80%, 90%);}
+body {background-color: hsl(calc(360*var(--rand-10)), 80%, 90%);}
 
 
 section:has(.wall) {
@@ -116,4 +117,21 @@ h1 {
     color: #555;
     margin-top: 4px;
     text-align: right;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a {
+    padding: 20px;
+    color: #444;
+  text-decoration: none;
+}
+
+nav a:hover {
+    color: #000;
 }
