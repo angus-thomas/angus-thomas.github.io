@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Angus's Website - Photo album</title>
+	<link rel="stylesheet" href="/resources/9/css/styles.css">
+</head>
+
+<body>
+	<div class="container" style="text-align: left">
+		<h1>Coding blog</h1>
+		<section>
+			<h2> Photo album app - an introduction</h2>
+			<p>Hi all, I've been coding photo album software for my (non-mac) desktop PC that has all my favourite features from the iPhone photo album, plus some more to help with saving / restoring backups.</p>
+			
+			<p>I've recently got a new PC, and have been undertaking to load all of the USB sticks with backups that I've created over my lifetime, and make something of the data within.</p>
+			<p>
+				Through my life, I have occasionally felt a dread that my files & photos (and minecraft worlds) have been at risk of permanent loss to the ether.
+				I've tackled this at the time by saving everything that I consider important to a USB stick, putting the USB stick at the back of my desk drawer, and forgetting about it.
+				This has led me to now to have a full handful of memory sticks, containing a disordered intersecting mess of old photos and files, and only Windows Explorer to view them.
+			</p>
+			
+			<p>I've recently got a new PC, and have been undertaking to load all of the USB sticks with backups that I've created over my lifetime, and make something of the data within. I've focussed on the richest of the data, my photos.</p>
+			<p>I quickly realised that the software available left me with a raft of problems</p>
+			<ul>
+				<li>iCloud shared libraries expire.</li>
+				<li>Treasured photos sit on non-photo-library apps, like WhatsApp.</li>
+				<li>Backups contain intersecting sets of photos, some with different filenames. (it seems Apple have finally settled on GUIDs for photo names instead of IMG_\d{5}.jpg)</li>
+				<li>The juicy AI features on the iPhone photo library are unavailable on a zip file in a memory stick.</li>
+				<li>I can't simply select a set of photos and show them to my family on my desktop.</li>
+			</ul>
+			<p>I've of course decided to code my own photo library.</p>
+		</section>
+		<section>
+			<h2>The photo library program</h2>
+			<p>The app so far has a set of libraries, and a grid of all photos.</p>
+			<p>Some elements of the tech stack:</p>
+			<ul>
+				<li>Creating a GUI app, using QT (feels far nicer than electron/chromium UI).</li>
+				<li>Persistent storage of metadata, using a SQLite database with the SqlAlchemy ORM, for speedy development.</li>
+				<li>Extraction of image metadata, using a mega python function written with AI</li>
+				<li>AI features, as detailed below.</li>
+			</ul>
+			<p>Problem: I have thousands of memes along with my </p>
+		</section>
+		<section>
+			<h2>Outsorting the memes</h2>
+			<p>I have about as many memes as I have photographs, which I estimate to be about 5-10 thousand. I have a few thousand screenshots too.</p>
+			<p>When showing old photos to my family, they're not interested in memes, ergo I've been developing a meme/screenshot filter.</p>
+			
+			<h3>Image features</h3>
+			<p>There are various features of memes, screenshots, and photos which differ, and allow me to create this filter.</p>
+			<ul>
+				<li>Number of colours: Photos typically have continuous colour ranges throughout, and screenshots typically capture a page with a handful of font & background colours.</li>
+				<li>Text: Memes and screenshot images contain text, with meme text less clear than screenshot text.</li>
+				<li>Regions of single colour: Photos don't have these, memes sometimes do, and screenshots always do.</li>
+			</ul>
+			And some more features, that ChatGPT has identified:
+			<ul>
+				<li>Edge density: How much visible outline detail there is in the image, like borders around shapes, objects, or text.</li>
+				<li>Edge orientation peakedness: Whether most edges in the image tend to line up in a few directions.</li>
+				<li>High frequency ratio: How sharp or detailed the image looks; how much it is made up of fine changes rather than smooth areas.</li>
+				<li>Discreteness entropy: How varied the colours are across the image.</li>
+				<li>Discreteness palette: How limited the colour set is.</li>
+			</ul>
+			
+			<h3>Feature functions</h3>
+			<p>I coded up a scorer for each of these features: a Python function that loads an image and outputs a number 
+				from 0 to 1 of how strongly that feature presented.
+			</p>
+			<p>With a series of these functions, I could load an image and transform it into a set of numbers: an 8D features vector</p>
+			<p>The filter was then a classification problem; using the vector encoding the image features, determine whether the image is:</p>
+			<ol>
+				<li>a photo,</li>
+				<li>a meme, or</li>
+				<li>a screenshot.</li>
+			</ol>
+			<p>The photo was the null option: if it couldn't be determined that an image was either a meme or a screenshot, it'd be assumed to be a photo.</p>
+			<p>A ML model was a natural choice for this. I like to use the simplest thing for the job, to avoid overcomplicating, so I chose a logistic regression model.</p>
+			<p>The logistic regression model assigns a score (a <em>coefficient</em>) to each feature and combines the features with their coefficients to determine confidence that the image is a meme, or a screenshot. </p>
+			<p>The model was trained on a folder of tagged images (I added 'meme', 'screenshot' or 'photo' to the filenames of a selected subset of my photo album, totalling about 30 images).</p>
+			<p>The model is now able to transform the feature vector to a determination of which category the image belongs to.</p>
+		</section>
+	</div>
+</body>
+
+</html>
